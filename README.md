@@ -6,7 +6,7 @@ _This README contains basic information about the project and its artifacts. If 
 ## Team
 
 - Benjamin Lincourt
-- MEMBER2
+- Neville Lewis
 - Jonathan Coyne
 - Nick Pels
 - MEMBER5
