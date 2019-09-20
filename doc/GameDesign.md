@@ -5,9 +5,13 @@
 
 ### Genre
 	Roguelike
+	strategy
+	role playing game
+	Gatcha game
+	pay to win
 
 ### Feature set
-	Turn based movement and combat, Menus for attacks and Items. Possible future features include: Multiple itemsl, procedurally generated dungeons and multiple enemies and random encounters
+	Turn based movement and combat, Menus for attacks and Items. Possible future features include: Multiple items, procedurally generated dungeons and multiple enemies and random encounters
 
 ### Game Flow Summary
 	Linear game flow, player proceeds from dungeon to dungeon, floor to floor. 
@@ -27,6 +31,34 @@
 
 ### Objectives
 	make a game?
+	1. character movement
+		-player controller takes in input on the player's turn
+		-grid based movement
+		-character asset
+	2. enemy movement
+		-enemy moves along the grid
+		-enemy moves only after the player does (on enemy turn)
+		-enemy moves toward player
+		-enemy asset
+		-enemy avoids obstacles to get to player
+	3. combat
+		-player can attack
+		-player's attack expends a turn
+		-enemy can take damage and die
+		-enemy can attack
+		-enemy's attack expends its turn
+		-player can take damage and die
+		-attack effect
+		-player can have multiple attacks
+		-enemy can have multiple attacks
+	3.5 start menu and ui
+	4. items
+		-create an item that can be used to heal the player
+		-create an item that can damage enemies 
+		-create item assets
+		-Aoe damage item
+		-inventory list
+	5. Background art and assets
 
 ### Inspiration and References
 	- Pokemon Mystery Dungeon
@@ -47,6 +79,7 @@
 
 ### Controls
 	arrow keys to move, z and x as accept and decline
+	c to open menu, arrow keys to navigate menu
 
 ### Levels
 	minimum viable product- one static level
@@ -87,3 +120,4 @@
 ## monetization plan
 	microtransactions out the ass
     		pay to grade
+			subscription fees
