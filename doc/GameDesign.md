@@ -1,7 +1,7 @@
 # Game Design
 
 ## Overview
-	A horror turn based roguelike akin to pokemon mystery dungeon. The player has to manage resources, health, and moves in an attempt to traverse a dungeon.
+	A spooky turn based roguelike akin to pokemon mystery dungeon. The player has to manage resources, health, and moves in an attempt to traverse a dungeon.
 
 ### Genre
 	Roguelike
@@ -73,13 +73,38 @@
 
 ## Game Play
 	The gameplay is turn based movement and combat, with a limited set of moves and movement options. The goal of each level is to eliminate the monsters and proceed to the next level
-
+    
+    the game is played on a level by level basis, where each level consists of a handful of rooms on a square tile grid. the rooms are connected through hallways that are one tile wide. The rooms that have not yet been visited by the player should not yet be visible to the player. Rooms that have not yet been visited by the player will spawn enemies randomly based on how many enemies there are in the level and how many rooms are undiscovered. 
+    
+    turn structure:
+        Player turn
+            player can:
+            - (stretch goal) change direction they're facing for an attack
+            - (stretch goal) look around the level
+            - one of the following
+                move one space in any direction (no diagonal movement through convex corners)
+                use an item
+                attack
+                
+        enemy turn
+            if the player is in the same room as the enemy:
+            - face the player
+            - one of the following:
+                move toward the player
+                attack if in range
+            if the player is in another room
+            - move randomly
+            
+    The player gets minimal information about enemies
+    possible low health indicator for enemies
+                
 ### Game Modes
 	one mode, dungeon crawl
 
 ### Controls
 	arrow keys to move, z and x as accept and decline
 	c to open menu, arrow keys to navigate menu
+    possible extra contols: 
 
 ### Levels
 	minimum viable product- one static level
@@ -99,7 +124,9 @@
 
 ### Graphics
 	pixel art, 32x32px sprites
+    camera follows the player
     		stretch goal 1 - lighting and shadows
+            stretch goal 2 - camera able to move independently from the player (looking around into previously visited rooms)
 
 ### Text
 	minimum viable product - menu text at most
