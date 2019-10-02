@@ -105,6 +105,8 @@
 	arrow keys to move, z and x as accept and decline
 	c to open menu, arrow keys to navigate menu
     possible extra contols: 
+    	Hold s and use the arrow keys to move the camera
+	hold d and use the arrow keys to change the direction of the character
 
 ### Levels
 	minimum viable product- one static level
@@ -126,7 +128,7 @@
 	pixel art, 32x32px sprites
     camera follows the player
     		stretch goal 1 - lighting and shadows
-            stretch goal 2 - camera able to move independently from the player (looking around into previously visited rooms)
+            	stretch goal 2 - camera able to move independently from the player (looking around into previously visited rooms)
 
 ### Text
 	minimum viable product - menu text at most
