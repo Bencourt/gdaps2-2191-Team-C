@@ -20,19 +20,18 @@ The primary goals of this project are the following:
 5. To have fun making a game
 
 ## Mission Statement
-_Replace this with the overall objectives that your team has agreed upon._
-_What is the goal of the project (from a learning and product perspective)? Who is your target audience? How will you define success?_
+The goal of this project is to learn about game design and development in a team based environment while producing a quality project for use in our personal portfolios
 
 ## Communications
 
 ### Discord
-_Add info about how to join/use your team's Discord channel. What is it?_
+Discord is used to communicate team meeting information, to allow team members to attend group meetings through the voice chat, and to alert members whenever changes have been made to the git repository
 
 ### Meeting Times
-_Set at least 1 out-of-class meeting time and note times when the entire group is usually free for additional meetings as needed._
+Meetings from 4-5 tuesday and friday
 
 ## Repository Overview
-_As the project progresses, add notes here about how the repository is organized, how branches are being used, etc._
+Repository so far mostly unchanged as far as structure, But the documentation has been updated
 
 **Instructions about the required documentation/activities for each milestone can be found in [instructions/](instructions/Milestone Instructions.md).**
 
