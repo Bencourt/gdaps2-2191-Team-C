@@ -6,6 +6,7 @@ This is the file containing concept art, interface mockups, and style informatio
 ## Concept Art
 ![Mayor Concept art preliminary](Mayor concept 2.jpg)
 ![Mayor Concept art](Mayor concept 1.jpg)
+![Mayor Pixel concept](MayorPixel.png)
 ![mood board](mood board.JPG)
 ![style guide highlights](highlights.JPG)
 ![style guide dark base tones](Dark base tones.png)
