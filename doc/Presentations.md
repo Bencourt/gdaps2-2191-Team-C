@@ -15,6 +15,7 @@ I suggest you practice in front of (at least) your team.  Actually present to yo
 With each milestone, **add a link in the table above to your presentation slides** (I'm assuming these will be in Google Slides) AND **make a few notes in this document** about how you went about planning and practicing for this presentation. 
 
 ## Milestone 1
+  We started the presentation planning on September 30th, and during our meeting on Oct. 1, we started putting it together. Tasks were mostly split up through the trello and people were reminded of their duties through the discord. To practice, we planned out our roles and slides through the discord voice chat as well.
 
 ## Milestone 2
 
