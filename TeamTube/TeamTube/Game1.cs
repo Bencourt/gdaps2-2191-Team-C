@@ -7,10 +7,20 @@ namespace TeamTube
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
+    enum TileType
+    {
+        Wall,
+        floor,
+        entrance,
+        exit
+    }
     public class Game1 : Game
     {
+        
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
 
         public Game1()
         {
