@@ -43,7 +43,8 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="IDamageable.cs" />
+    <Compile Include="iDamageable.cs" />
+    <Compile Include="iMovable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
