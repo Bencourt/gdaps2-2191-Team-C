@@ -12,7 +12,8 @@ namespace TeamTube
         Wall,
         floor,
         entrance,
-        exit
+        exit,
+        error
     }
     public class Game1 : Game
     {
