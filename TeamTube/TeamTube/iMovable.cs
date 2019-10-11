@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace TeamTube
 {
-    interface iDamageable
+    interface iMovable
     {
-        int Health { get; set; }
-        int DamageTaken { get; set; }
-        void TakeDamage(int damage);
-        void Death();
+        public void GetAdjacent(TileType[] tiles, int[] characters);
+
 
     }
 }
