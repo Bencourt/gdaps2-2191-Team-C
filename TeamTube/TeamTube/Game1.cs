@@ -121,8 +121,44 @@ namespace TeamTube
                 }
             }
             while (gState == GameState.moveSelect)
-            {
-                
+            {//Exiting the menu will be allowed once an attack method has been implemented
+                if (mState == MenuState.exit)//Allows scrolling through the menu
+                {
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        mState = MenuState.attack;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        mState = MenuState.strongAttack;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Enter))
+                    {
+                        gState = GameState.gamePlay;
+                    }
+                }
+                else if (mState == MenuState.attack)
+                {
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        mState = MenuState.strongAttack;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        mState = MenuState.exit;
+                    }
+                }
+                else if (mState == MenuState.strongAttack)
+                {
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        mState = MenuState.exit;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        mState = MenuState.attack;
+                    }
+                }
             }
 
             // TODO: Add your update logic here
