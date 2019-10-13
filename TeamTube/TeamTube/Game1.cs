@@ -15,12 +15,29 @@ namespace TeamTube
         exit,
         error
     }
+    enum GameState
+    {
+        mainMenu,
+        gamePlay,
+        moveSelect,
+        pauseMenu,
+        gameOver
+    }
+    enum MenuState//Item state will be put in at a later time
+    {
+        attack,
+        strongAttack,
+        exit
+    }
     public class Game1 : Game
     {
         
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        GameState gState;
+        MenuState mState;
+        KeyboardState kbState;
         
 
         public Game1()
@@ -38,7 +55,9 @@ namespace TeamTube
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            gState = new GameState();
+            mState = new MenuState();
+            kbState = Keyboard.GetState();
             base.Initialize();
         }
 
@@ -72,6 +91,39 @@ namespace TeamTube
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            while (gState == GameState.mainMenu)
+            {
+                if (kbState.IsKeyDown(Keys.Enter))
+                {
+                    gState = GameState.gamePlay;
+                }
+            }
+            while (gState == GameState.gamePlay)
+            {
+                if (kbState.IsKeyDown(Keys.Space))
+                {
+                    gState = GameState.pauseMenu;
+                }
+                if (kbState.IsKeyDown(Keys.F))
+                {
+                    gState = GameState.moveSelect;
+                }
+            }
+            while (gState == GameState.pauseMenu)
+            {
+                if (kbState.IsKeyDown(Keys.Enter))
+                {
+                   gState=GameState.gamePlay;//Returns to Gameplay state if enter is pressed
+                }
+                else if (kbState.IsKeyDown(Keys.X))
+                {
+                    gState = GameState.mainMenu;//Returns to menu if x is pressed
+                }
+            }
+            while (gState == GameState.moveSelect)
+            {
+                
+            }
 
             // TODO: Add your update logic here
 
