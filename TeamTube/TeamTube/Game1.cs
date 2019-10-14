@@ -15,6 +15,20 @@ namespace TeamTube
         exit,
         error
     }
+    enum GameState
+    {
+        mainMenu,
+        gamePlay,
+        moveSelect,
+        pauseMenu,
+        gameOver
+    }
+    enum MenuState//Item state will be put in at a later time
+    {
+        attack,
+        strongAttack,
+        exit
+    }
     public class Game1 : Game
     {
         
@@ -28,6 +42,10 @@ namespace TeamTube
 
         //we need a tile Controller
         TileContoller tileContoller;
+        GameState gState;
+        MenuState mState;
+        KeyboardState kbState;
+        
 
         public Game1()
         {
@@ -44,7 +62,9 @@ namespace TeamTube
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            gState = new GameState();
+            mState = new MenuState();
+            kbState = Keyboard.GetState();
             base.Initialize();
         }
 
@@ -86,6 +106,75 @@ namespace TeamTube
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            while (gState == GameState.mainMenu)
+            {
+                if (kbState.IsKeyDown(Keys.Enter))
+                {
+                    gState = GameState.gamePlay;
+                }
+            }
+            while (gState == GameState.gamePlay)
+            {
+                if (kbState.IsKeyDown(Keys.Space))
+                {
+                    gState = GameState.pauseMenu;
+                }
+                if (kbState.IsKeyDown(Keys.F))
+                {
+                    gState = GameState.moveSelect;
+                }
+            }
+            while (gState == GameState.pauseMenu)
+            {
+                if (kbState.IsKeyDown(Keys.Enter))
+                {
+                   gState=GameState.gamePlay;//Returns to Gameplay state if enter is pressed
+                }
+                else if (kbState.IsKeyDown(Keys.X))
+                {
+                    gState = GameState.mainMenu;//Returns to menu if x is pressed
+                }
+            }
+            while (gState == GameState.moveSelect)
+            {//Exiting the menu will be allowed once an attack method has been implemented
+                if (mState == MenuState.exit)//Allows scrolling through the menu
+                {
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        mState = MenuState.attack;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        mState = MenuState.strongAttack;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Enter))
+                    {
+                        gState = GameState.gamePlay;
+                    }
+                }
+                else if (mState == MenuState.attack)
+                {
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        mState = MenuState.strongAttack;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        mState = MenuState.exit;
+                    }
+                }
+                else if (mState == MenuState.strongAttack)
+                {
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        mState = MenuState.exit;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        mState = MenuState.attack;
+                    }
+                }
+            }
 
             // TODO: Add your update logic here
             
