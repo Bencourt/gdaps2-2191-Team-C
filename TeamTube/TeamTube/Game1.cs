@@ -60,6 +60,8 @@ namespace TeamTube
 
         //we need a tile Controller
         TileController tileController;
+
+        //Enum items
         GameState gState;
         MenuState mState;
         ItemState iState;
@@ -68,6 +70,11 @@ namespace TeamTube
         //check if items have been picked up
         bool bombActive;
         bool potionActive;
+        //Attack selection
+        Vector2 exitVector;
+        Vector2 attackVector;
+        Vector2 strongVector;
+        SpriteFont selectionText;
 
         public Game1()
         {
@@ -91,6 +98,10 @@ namespace TeamTube
             bombActive = false;
             potionActive = false;
             playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
+            exitVector = new Vector2(20, 60);
+            attackVector = new Vector2(20, 50);
+            strongVector = new Vector2(20, 40);
+            selectionText = Content.Load<SpriteFont>("AttackFont");
             base.Initialize();
 
         }
@@ -328,6 +339,10 @@ namespace TeamTube
 
             tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture);
             player.Draw(spriteBatch);
+            if (gState == GameState.moveSelect)
+            {
+                spriteBatch.DrawString(selectionText, "Exit", exitRect, Color.White);
+            }
             //end
             spriteBatch.End();
 
