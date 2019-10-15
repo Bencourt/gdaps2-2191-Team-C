@@ -250,7 +250,7 @@ namespace TeamTube
                     }
                     //will put coordinates after assets have been added in.
                 }
-                if (iState==ItemState.potion)
+                else if (iState==ItemState.potion)
                 {
                     if (bombActive == true)//What is selected if bomb is or isn't activated and up is pressed
                     {
@@ -269,6 +269,38 @@ namespace TeamTube
                     if (kbState.IsKeyDown(Keys.Down))//What happens when down is pressed, whethere or not bomb is activated
                     {
                         iState = ItemState.exit;
+                    }
+                }
+                else if (iState == ItemState.exit)
+                {
+                    if (bombActive == true && potionActive == true)//if both items are active
+                    {
+                        if (kbState.IsKeyDown(Keys.Up))
+                        {
+                            iState = ItemState.potion;
+                        }
+                        else if (kbState.IsKeyDown(Keys.Down))
+                        {
+                            iState = ItemState.bomb;
+                        }
+                    }
+                    else if (bombActive == true && potionActive != true)//if only bomb is active
+                    {
+                        if (kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down))
+                        {
+                            iState = ItemState.bomb;
+                        }
+                    }
+                    else if (bombActive != true && potionActive == true)//if only potion is active
+                    {
+                        if (kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down))
+                        {
+                            iState = ItemState.potion;
+                        }
+                    }
+                    if (kbState.IsKeyDown(Keys.Enter))//if enter is pressed, go back to move select
+                    {
+                        gState = GameState.moveSelect;
                     }
                 }
             }
