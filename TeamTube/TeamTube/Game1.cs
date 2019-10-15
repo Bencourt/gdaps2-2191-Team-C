@@ -20,6 +20,7 @@ namespace TeamTube
         mainMenu,
         gamePlay,
         moveSelect,
+        itemSelect,
         pauseMenu,
         gameOver
     }
@@ -27,6 +28,13 @@ namespace TeamTube
     {
         attack,
         strongAttack,
+        item,
+        exit
+    }
+    enum ItemState
+    {
+        bomb,
+        potion,
         exit
     }
     public class Game1 : Game
@@ -44,8 +52,12 @@ namespace TeamTube
         TileContoller tileContoller;
         GameState gState;
         MenuState mState;
+        ItemState iState;
         KeyboardState kbState;
-        
+
+        //check if items have been picked up
+        bool bombActive;
+        bool potionActive;
 
         public Game1()
         {
@@ -64,7 +76,10 @@ namespace TeamTube
             // TODO: Add your initialization logic here
             gState = new GameState();
             mState = new MenuState();
+            iState = new ItemState();
             kbState = Keyboard.GetState();
+            bombActive = false;
+            potionActive = false;
             base.Initialize();
         }
 
@@ -141,7 +156,7 @@ namespace TeamTube
                 {
                     if (kbState.IsKeyDown(Keys.Up))
                     {
-                        mState = MenuState.attack;
+                        mState = MenuState.item;
                     }
                     else if (kbState.IsKeyDown(Keys.Down))
                     {
@@ -152,6 +167,21 @@ namespace TeamTube
                         gState = GameState.gamePlay;
                     }
                 }
+                else if (mState == MenuState.item)
+                {
+                    if (kbState.IsKeyDown(Keys.Up))
+                    {
+                        mState = MenuState.attack;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Down))
+                    {
+                        mState = MenuState.exit;
+                    }
+                    else if (kbState.IsKeyDown(Keys.Enter))
+                    {
+                        gState = GameState.itemSelect;
+                    }
+                }
                 else if (mState == MenuState.attack)
                 {
                     if (kbState.IsKeyDown(Keys.Up))
@@ -160,7 +190,7 @@ namespace TeamTube
                     }
                     else if (kbState.IsKeyDown(Keys.Down))
                     {
-                        mState = MenuState.exit;
+                        mState = MenuState.item;
                     }
                 }
                 else if (mState == MenuState.strongAttack)
@@ -173,6 +203,30 @@ namespace TeamTube
                     {
                         mState = MenuState.attack;
                     }
+                }
+            }
+            if (gState == GameState.itemSelect)
+            {
+                if (iState == ItemState.bomb) ;
+                if (bombActive == true)
+                {
+                    if (potionActive == true)
+                    {
+                        //coordinate change
+                        if (kbState.IsKeyDown(Keys.Down))
+                        {
+                            iState = ItemState.potion;
+                        }
+                    }
+                    else
+                    {
+                        if (kbState.IsKeyDown(Keys.Down))
+                        {
+                            iState = ItemState.exit;
+                        }
+                    }
+                    //will put coordinates after assets have been added in.
+
                 }
             }
 
