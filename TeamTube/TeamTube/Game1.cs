@@ -149,17 +149,17 @@ namespace TeamTube
         protected override void Update(GameTime gameTime)
         {
             #region menu logic
-            /*
+            
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            while (gState == GameState.mainMenu)
+            if (gState == GameState.mainMenu)
             {
                 if (kbState.IsKeyDown(Keys.Enter))
                 {
                     gState = GameState.gamePlay;
                 }
             }
-            while (gState == GameState.gamePlay)
+            if (gState == GameState.gamePlay)
             {
                 if (kbState.IsKeyDown(Keys.Space))
                 {
@@ -170,7 +170,7 @@ namespace TeamTube
                     gState = GameState.moveSelect;
                 }
             }
-            while (gState == GameState.pauseMenu)
+            if (gState == GameState.pauseMenu)
             {
                 if (kbState.IsKeyDown(Keys.Enter))
                 {
@@ -181,7 +181,7 @@ namespace TeamTube
                     gState = GameState.mainMenu;//Returns to menu if x is pressed
                 }
             }
-            while (gState == GameState.moveSelect)
+            if (gState == GameState.moveSelect)
             {//Exiting the menu will be allowed once an attack method has been implemented
                 if (mState == MenuState.exit)//Allows scrolling through the menu
                 {
@@ -317,7 +317,7 @@ namespace TeamTube
             }
 
             // TODO: Add your update logic here
-            */
+            
             #endregion
 
             kbState = Keyboard.GetState();
