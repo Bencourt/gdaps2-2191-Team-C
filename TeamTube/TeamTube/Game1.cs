@@ -7,7 +7,7 @@ namespace TeamTube
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    enum TileType
+    public enum TileType
     {
         Wall,
         floor,
@@ -35,6 +35,13 @@ namespace TeamTube
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        //temporary wall and floor texture
+        Texture2D wallTexture;
+        Texture2D floorTexture;
+
+        //we need a tile Controller
+        TileContoller tileContoller;
         GameState gState;
         MenuState mState;
         KeyboardState kbState;
@@ -70,7 +77,15 @@ namespace TeamTube
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //load temporary wall and floor assets
+            wallTexture = Content.Load<Texture2D>("wall");
+            floorTexture = Content.Load<Texture2D>("floor");
+
+            //instantiate Tile Controller
+            tileContoller = new TileContoller(26,26);
+            //create first level with filepath 
+            tileContoller.CreateLevel1("..\\..\\..\\..\\Levels\\LevelExample.txt");
+
         }
 
         /// <summary>
@@ -162,6 +177,8 @@ namespace TeamTube
             }
 
             // TODO: Add your update logic here
+            
+            
 
             base.Update(gameTime);
         }
@@ -174,7 +191,13 @@ namespace TeamTube
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            //begin
+            spriteBatch.Begin();
+
+            tileContoller.DrawLevel(spriteBatch, wallTexture, floorTexture);
+
+            //end
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
