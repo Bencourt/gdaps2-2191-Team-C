@@ -138,7 +138,7 @@ namespace TeamTube
         protected override void Update(GameTime gameTime)
         {
             #region menu logic
-            //
+            /*
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             while (gState == GameState.mainMenu)
@@ -306,7 +306,7 @@ namespace TeamTube
             }
 
             // TODO: Add your update logic here
-            //
+            */
             #endregion
 
             kbState = Keyboard.GetState();
