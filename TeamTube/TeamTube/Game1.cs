@@ -48,6 +48,13 @@ namespace TeamTube
         Texture2D wallTexture;
         Texture2D floorTexture;
 
+        //temp player texture
+        Texture2D playerTexture;
+        Rectangle playerRectangle;
+
+        CharacterController characterController;
+        Player player;
+
         //we need a tile Controller
         TileContoller tileContoller;
         GameState gState;
@@ -80,7 +87,9 @@ namespace TeamTube
             kbState = Keyboard.GetState();
             bombActive = false;
             potionActive = false;
+            playerRectangle = new Rectangle(new Point(32, 32), new Point(32, 32));
             base.Initialize();
+
         }
 
         /// <summary>
@@ -96,11 +105,15 @@ namespace TeamTube
             wallTexture = Content.Load<Texture2D>("wall");
             floorTexture = Content.Load<Texture2D>("floor");
 
+            //load temp player texture
+            playerTexture = Content.Load<Texture2D>("Player_Placeholder");
+
             //instantiate Tile Controller
             tileContoller = new TileContoller(26,26);
             //create first level with filepath 
-            tileContoller.CreateLevel1("..\\..\\..\\..\\Levels\\LevelExample.txt");
-
+            tileContoller.CreateLevel1("..\\..\\..\\..\\Levels\\Level2.txt");
+            characterController = new CharacterController(26, 26);
+            player = new Player(characterController, 10, playerRectangle, playerTexture);
         }
 
         /// <summary>
@@ -119,6 +132,8 @@ namespace TeamTube
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            #region menu logic
+            /*
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             while (gState == GameState.mainMenu)
@@ -231,8 +246,11 @@ namespace TeamTube
             }
 
             // TODO: Add your update logic here
-            
-            
+            */
+            #endregion
+
+            kbState = Keyboard.GetState();
+            player.Update(kbState);
 
             base.Update(gameTime);
         }
@@ -249,7 +267,7 @@ namespace TeamTube
             spriteBatch.Begin();
 
             tileContoller.DrawLevel(spriteBatch, wallTexture, floorTexture);
-
+            player.Draw(spriteBatch);
             //end
             spriteBatch.End();
 

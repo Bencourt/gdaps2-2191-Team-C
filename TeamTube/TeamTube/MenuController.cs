@@ -38,7 +38,7 @@ namespace TeamTube
             }
             else
             {
-                return 
+                return true;
             }
         }
         ///attack menu-different possibilities
