@@ -125,11 +125,12 @@ namespace TeamTube
                             break;
                         case TileType.entrance:
                             //draw an entrance
-
+                            spriteBatch.Draw(entranceTexture, new Rectangle(32 * x, 32 * y, 32, 32), Color.White);
                             break;
                         case TileType.exit:
                             //draw an exit
-
+                            spriteBatch.Draw(exitTexture, new Rectangle(32 * x, 32 * y, 32, 32), Color.White);
+                            break;
                         case TileType.error:
                             //draw error tile
                             spriteBatch.Draw(floorTexture, new Rectangle(32 * x, 32 * y, 32, 32), Color.White);
