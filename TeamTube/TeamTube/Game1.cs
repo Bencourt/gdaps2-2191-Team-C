@@ -326,7 +326,7 @@ namespace TeamTube
             //begin
             spriteBatch.Begin();
 
-            tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture);
+            tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
             player.Draw(spriteBatch);
             //end
             spriteBatch.End();

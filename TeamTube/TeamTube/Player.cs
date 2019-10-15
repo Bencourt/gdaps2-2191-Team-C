@@ -37,7 +37,7 @@ namespace TeamTube
             int x = characterController.FindCharacter(this).X;
             int y = characterController.FindCharacter(this).Y;
 
-            if(tiles.Level1[x+targetX,y+targetY] != TileType.floor)
+            if(tiles.levels[0][x+targetX,y+targetY] != TileType.floor)
             {
                 return false;
             }

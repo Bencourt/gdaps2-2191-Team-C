@@ -15,15 +15,8 @@ namespace TeamTube
     {
         //need to load levels from file.io and save them to 2d arrays
         //2d arrays for tiles on the map
-        TileType[,] level1;
-
-        //parameters to get the 2d arrays
-        public TileType[,] Level1 
-        { 
-            get { return level1; } 
-            set { level1 = value; }
-        }
-
+        public List<TileType[,]> levels;
+        
         //set level dimensions in constructor
         int xLevelDimension;
         int yLevelDimension;
@@ -40,6 +33,9 @@ namespace TeamTube
             //set the dimensions
             this.xLevelDimension = x;
             this.yLevelDimension = y;
+
+            //instantiate the LIST OF ARRAYS
+            levels = new List<TileType[,]>();
         }
         
         //method for creating level, makes a Tiletype 2d array usable by the rest of game1
@@ -47,7 +43,7 @@ namespace TeamTube
         {
 
             //create level of size xLevelDimension by yLevelDimension
-            level1 = new TileType[xLevelDimension, yLevelDimension];
+            TileType[,] newlevel = new TileType[xLevelDimension, yLevelDimension];
 
             //load in text file
             reader = File.OpenText(path);
@@ -71,20 +67,20 @@ namespace TeamTube
                         switch (intTile-48)
                         {
                             case 0:
-                                level1[x, y] = TileType.Wall;
+                                newlevel[x, y] = TileType.Wall;
                                 break;
                             case 1:
-                                level1[x, y] = TileType.floor;
+                                newlevel[x, y] = TileType.floor;
                                 break;
                             case 2:
-                                level1[x, y] = TileType.entrance;
+                                newlevel[x, y] = TileType.entrance;
                                 break;
                             case 3:
-                                level1[x, y] = TileType.exit;
+                                newlevel[x, y] = TileType.exit;
                                 break;
                             default:
                                 //this shouldn't happen, but if it does, make it an error tile
-                                level1[x, y] = TileType.error;
+                                newlevel[x, y] = TileType.error;
                                 break;
                         }
                     }
@@ -98,10 +94,13 @@ namespace TeamTube
             }
             //close the reader
             reader.Close();
+
+            //add level to the list of levels
+            levels.Add(newlevel);
         }
 
 
-        public void DrawLevel(SpriteBatch spriteBatch, Texture2D wallTexture, Texture2D floorTexture, Texture2D entranceTexture, Texture2D exitTexture) 
+        public void DrawLevel(SpriteBatch spriteBatch, Texture2D wallTexture, Texture2D floorTexture, Texture2D entranceTexture, Texture2D exitTexture, int levelNumber) 
         {
             //draw one tile
             //spriteBatch.Draw(floorTexture, new Rectangle(0, 0, 32, 32), Color.White);
@@ -114,7 +113,7 @@ namespace TeamTube
                 for (int x = 0; x < 26; x++)
                 {
                     //see what each tile is, then print them
-                    switch (level1[x, y])
+                    switch (levels[levelNumber - 1][x, y])
                     {
                         case TileType.Wall:
                             //draw a wall
