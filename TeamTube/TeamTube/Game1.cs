@@ -133,7 +133,7 @@ namespace TeamTube
         protected override void Update(GameTime gameTime)
         {
             #region menu logic
-            /*
+            //
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             while (gState == GameState.mainMenu)
@@ -220,12 +220,11 @@ namespace TeamTube
                     }
                 }
             }
-            if (gState == GameState.itemSelect)
+            if (gState == GameState.itemSelect)//Item logic
             {
-                if (iState == ItemState.bomb) ;
-                if (bombActive == true)
+                if (iState == ItemState.bomb)
                 {
-                    if (potionActive == true)
+                    if (potionActive == true)//What is selected if potion is or isn't activated and down is pressed
                     {
                         //coordinate change
                         if (kbState.IsKeyDown(Keys.Down))
@@ -240,13 +239,37 @@ namespace TeamTube
                             iState = ItemState.exit;
                         }
                     }
+                    if (kbState.IsKeyDown(Keys.Up))//What happens when up is pressed, whethere or not potion is activated
+                    {
+                        iState = ItemState.exit;
+                    }
                     //will put coordinates after assets have been added in.
-
+                }
+                if (iState==ItemState.potion)
+                {
+                    if (bombActive == true)//What is selected if bomb is or isn't activated and up is pressed
+                    {
+                        if (kbState.IsKeyDown(Keys.Up))
+                        {
+                            iState = ItemState.bomb;
+                        }
+                    }
+                    else
+                    {
+                        if (kbState.IsKeyDown(Keys.Up))
+                        {
+                            iState = ItemState.exit;
+                        }
+                    }
+                    if (kbState.IsKeyDown(Keys.Down))//What happens when down is pressed, whethere or not bomb is activated
+                    {
+                        iState = ItemState.exit;
+                    }
                 }
             }
 
             // TODO: Add your update logic here
-            */
+            //
             #endregion
 
             kbState = Keyboard.GetState();
