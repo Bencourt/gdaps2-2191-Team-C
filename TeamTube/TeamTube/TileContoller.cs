@@ -93,6 +93,7 @@ namespace TeamTube
             //reader is null
             else
             {
+                //i'm really sorry if this happens
                 Console.WriteLine("read error");
             }
             //close the reader
@@ -100,7 +101,7 @@ namespace TeamTube
         }
 
 
-        public void DrawLevel(SpriteBatch spriteBatch, Texture2D wallTexture, Texture2D floorTexture) 
+        public void DrawLevel(SpriteBatch spriteBatch, Texture2D wallTexture, Texture2D floorTexture, Texture2D entranceTexture, Texture2D exitTexture) 
         {
             //draw one tile
             //spriteBatch.Draw(floorTexture, new Rectangle(0, 0, 32, 32), Color.White);
@@ -123,6 +124,13 @@ namespace TeamTube
                             //draw a floor
                             spriteBatch.Draw(floorTexture, new Rectangle(32 * x, 32 * y, 32, 32), Color.White);
                             break;
+                        case TileType.entrance:
+                            //draw an entrance
+
+                            break;
+                        case TileType.exit:
+                            //draw an exit
+
                         case TileType.error:
                             //draw error tile
                             spriteBatch.Draw(floorTexture, new Rectangle(32 * x, 32 * y, 32, 32), Color.White);

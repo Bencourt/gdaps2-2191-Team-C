@@ -47,6 +47,9 @@ namespace TeamTube
         //temporary wall and floor texture
         Texture2D wallTexture;
         Texture2D floorTexture;
+        Texture2D entranceTexture;
+        Texture2D exitTexture;
+
 
         //temp player texture
         Texture2D playerTexture;
@@ -104,6 +107,8 @@ namespace TeamTube
             //load temporary wall and floor assets
             wallTexture = Content.Load<Texture2D>("wall");
             floorTexture = Content.Load<Texture2D>("floor");
+            entranceTexture = Content.Load<Texture2D>("entrance");
+            exitTexture = Content.Load<Texture2D>("exit");
 
             //load temp player texture
             playerTexture = Content.Load<Texture2D>("Player_Placeholder");
@@ -266,7 +271,7 @@ namespace TeamTube
             //begin
             spriteBatch.Begin();
 
-            tileController.DrawLevel(spriteBatch, wallTexture, floorTexture);
+            tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture);
             player.Draw(spriteBatch);
             //end
             spriteBatch.End();
