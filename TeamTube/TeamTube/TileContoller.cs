@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 namespace TeamTube
 {
 
-    class TileContoller
+    class TileController
     {
         //need to load levels from file.io and save them to 2d arrays
         //2d arrays for tiles on the map
@@ -35,7 +35,7 @@ namespace TeamTube
         StreamReader reader;
 
         //constructor
-        public TileContoller(int x, int y)
+        public TileController(int x, int y)
         {
             //set the dimensions
             this.xLevelDimension = x;

@@ -56,7 +56,7 @@ namespace TeamTube
         Player player;
 
         //we need a tile Controller
-        TileContoller tileContoller;
+        TileController tileController;
         GameState gState;
         MenuState mState;
         ItemState iState;
@@ -87,7 +87,7 @@ namespace TeamTube
             kbState = Keyboard.GetState();
             bombActive = false;
             potionActive = false;
-            playerRectangle = new Rectangle(new Point(32, 32), new Point(32, 32));
+            playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
             base.Initialize();
 
         }
@@ -109,11 +109,11 @@ namespace TeamTube
             playerTexture = Content.Load<Texture2D>("Player_Placeholder");
 
             //instantiate Tile Controller
-            tileContoller = new TileContoller(26,26);
+            tileController = new TileController(26,26);
             //create first level with filepath 
-            tileContoller.CreateLevel1("..\\..\\..\\..\\Levels\\Level2.txt");
+            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\Level2.txt");
             characterController = new CharacterController(26, 26);
-            player = new Player(characterController, 10, playerRectangle, playerTexture);
+            player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace TeamTube
             //begin
             spriteBatch.Begin();
 
-            tileContoller.DrawLevel(spriteBatch, wallTexture, floorTexture);
+            tileController.DrawLevel(spriteBatch, wallTexture, floorTexture);
             player.Draw(spriteBatch);
             //end
             spriteBatch.End();

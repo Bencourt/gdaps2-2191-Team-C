@@ -8,6 +8,6 @@ namespace TeamTube
 {
     interface iMovable
     {
-        void GetAdjacent(TileType[] tiles, int[] characters);
+        bool CheckTarget(int x, int y);
     }
 }

@@ -28,7 +28,7 @@ namespace TeamTube
             }
         }
 
-        private Point FindCharacter(Character c)
+        public Point FindCharacter(Character c)
         {
             for(int x = 0; x < characters.GetLength(0); x++)
             {
@@ -41,6 +41,11 @@ namespace TeamTube
                 }
             }
             return new Point(-1, -1);
+        }
+
+        public void Add(Character c, int x, int y)
+        {
+            characters[x, y] = c;
         }
     }
 }

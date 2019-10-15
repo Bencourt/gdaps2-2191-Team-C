@@ -29,6 +29,6 @@ namespace TeamTube
         }
 
         public abstract void Death();
-        public abstract void GetAdjacent(TileType[] tiles, int[] characters);
+        public abstract bool CheckTarget(int x, int y);
     }
 }

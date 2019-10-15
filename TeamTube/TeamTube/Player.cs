@@ -16,20 +16,35 @@ namespace TeamTube
         bool moving;
         int xTarget;
         int yTarget;
+        CharacterController characterController;
+        TileController tiles;
 
-        public Player(CharacterController characterController, int health, Rectangle playerRectangle, Texture2D playerTexture)
+        public Player(CharacterController characterController, TileController tiles, int health, Rectangle playerRectangle, Texture2D playerTexture)
         {
             xTarget = 0;
             yTarget = 0;
             this.Health = health;
             moving = false;
+            this.characterController = characterController;
+            this.tiles = tiles;
             this.playerRectangle = playerRectangle;
             this.playerTexture = playerTexture;
+            characterController.Add(this, playerRectangle.X/32, playerRectangle.Y/32);
         }
 
-        public override void GetAdjacent(TileType[] tiles, int[] characters)
+        public override bool CheckTarget(int targetX, int targetY)
         {
+            int x = characterController.FindCharacter(this).X;
+            int y = characterController.FindCharacter(this).Y;
 
+            if(tiles.Level1[x+targetX,y+targetY] != TileType.floor)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public void Update(KeyboardState keyboardState)
@@ -38,23 +53,39 @@ namespace TeamTube
             {
                 if (keyboardState.IsKeyDown(Keys.Up))
                 {
-                    moving = true;
-                    yTarget += 32;
+                    if (CheckTarget(0, -1))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, 0, -1);
+                        yTarget += 32;
+                    }
                 }
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {
-                    moving = true;
-                    yTarget -= 32;
+                    if (CheckTarget(0, 1))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, 0, 1);
+                        yTarget -= 32;
+                    }
                 }
                 if (keyboardState.IsKeyDown(Keys.Left))
                 {
-                    moving = true;
-                    xTarget -= 32;
+                    if (CheckTarget(-1, 0))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, -1, 0);
+                        xTarget -= 32;
+                    }
                 }
                 if (keyboardState.IsKeyDown(Keys.Right))
                 {
-                    moving = true;
-                    xTarget += 32;
+                    if (CheckTarget(1, 0))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, 1, 0);
+                        xTarget += 32;
+                    }
                 }
             }
             else if (moving)
