@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeamTube
 {
-    abstract class Character : iDamageable
+    abstract class Character : iDamageable, iMovable
     {
         int health;
         int damageTaken;
@@ -29,6 +29,6 @@ namespace TeamTube
         }
 
         public abstract void Death();
-        
+        public abstract void GetAdjacent(TileType[] tiles, int[] characters);
     }
 }
