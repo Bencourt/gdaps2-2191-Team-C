@@ -74,6 +74,9 @@ namespace TeamTube
         Vector2 exitVector;
         Vector2 attackVector;
         Vector2 strongVector;
+        Vector2 itemVector;
+        Vector2 bombVector;
+        Vector2 potionVector;
         SpriteFont selectionText;
 
         public Game1()
@@ -98,9 +101,12 @@ namespace TeamTube
             bombActive = false;
             potionActive = false;
             playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
-            exitVector = new Vector2(20, 60);
+            exitVector = new Vector2(20, 70);
+            itemVector = new Vector2(20, 60);
             attackVector = new Vector2(20, 50);
             strongVector = new Vector2(20, 40);
+            bombVector = new Vector2(20, 40);
+            potionVector = new Vector2(20, 50);
             selectionText = Content.Load<SpriteFont>("AttackFont");
             base.Initialize();
 
@@ -183,6 +189,7 @@ namespace TeamTube
             }
             if (gState == GameState.moveSelect)
             {//Exiting the menu will be allowed once an attack method has been implemented
+                exitVector = new Vector2(20, 70);
                 if (mState == MenuState.exit)//Allows scrolling through the menu
                 {
                     if (kbState.IsKeyDown(Keys.Up))
@@ -314,6 +321,26 @@ namespace TeamTube
                         gState = GameState.moveSelect;
                     }
                 }
+                if (bombActive == true && potionActive == true)
+                {
+                    bombVector = new Vector2(20, 40);
+                    potionVector = new Vector2(20, 50);
+                    exitVector = new Vector2(20, 60);
+                }
+                else if (bombActive == true && potionActive != true)
+                {
+                    bombVector = new Vector2(20, 40);
+                    exitVector = new Vector2(20, 50);
+                }
+                else if (bombActive != true && potionActive == true)
+                {
+                    potionVector = new Vector2(20, 40);
+                    exitVector = new Vector2(20, 50);
+                }
+                else
+                {
+                    exitVector = new Vector2(20, 40);
+                }
             }
 
             // TODO: Add your update logic here
@@ -365,6 +392,10 @@ namespace TeamTube
                 {
                     spriteBatch.DrawString(selectionText, "Strong Attack", strongVector, Color.White);
                 }                
+            }
+            else if (gState == GameState.itemSelect)
+            {
+                
             }
             //end
             spriteBatch.End();
