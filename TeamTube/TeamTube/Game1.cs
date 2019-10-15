@@ -127,7 +127,7 @@ namespace TeamTube
             //instantiate Tile Controller
             tileController = new TileController(26,26);
             //create first level with filepath 
-            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\Level2.txt");
+            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\LevelExample.txt");
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
         }

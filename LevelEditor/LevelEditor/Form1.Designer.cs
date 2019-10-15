@@ -42,11 +42,11 @@
             // filePathLabel
             // 
             this.filePathLabel.AutoSize = true;
-            this.filePathLabel.Location = new System.Drawing.Point(2294, 19);
+            this.filePathLabel.Location = new System.Drawing.Point(2290, 13);
             this.filePathLabel.Name = "filePathLabel";
-            this.filePathLabel.Size = new System.Drawing.Size(71, 20);
+            this.filePathLabel.Size = new System.Drawing.Size(75, 20);
             this.filePathLabel.TabIndex = 1;
-            this.filePathLabel.Text = "File Path";
+            this.filePathLabel.Text = "File Path:";
             // 
             // levelEditor
             // 
