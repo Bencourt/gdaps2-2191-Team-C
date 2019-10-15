@@ -339,9 +339,32 @@ namespace TeamTube
 
             tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
             player.Draw(spriteBatch);
-            if (gState == GameState.moveSelect)
+            if (gState == GameState.moveSelect)//What shows up in the attack selection
             {
-                spriteBatch.DrawString(selectionText, "Exit", exitRect, Color.White);
+                if (mState == MenuState.exit)//changes colors if selected
+                {
+                    spriteBatch.DrawString(selectionText, "Exit", exitVector, Color.Blue);
+                }
+                else
+                {
+                    spriteBatch.DrawString(selectionText, "Exit", exitVector, Color.White);
+                }
+                if (mState == MenuState.attack)
+                {
+                    spriteBatch.DrawString(selectionText, "Attack", attackVector, Color.Blue);
+                }
+                else
+                {
+                    spriteBatch.DrawString(selectionText, "Attack", attackVector, Color.White);
+                }
+                if (mState == MenuState.strongAttack)
+                {
+                    spriteBatch.DrawString(selectionText, "Strong Attack", strongVector, Color.Blue);
+                }
+                else
+                {
+                    spriteBatch.DrawString(selectionText, "Strong Attack", strongVector, Color.White);
+                }                
             }
             //end
             spriteBatch.End();
