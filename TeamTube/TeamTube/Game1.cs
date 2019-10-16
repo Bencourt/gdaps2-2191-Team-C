@@ -7,36 +7,7 @@ namespace TeamTube
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public enum TileType
-    {
-        Wall,
-        floor,
-        entrance,
-        exit,
-        error
-    }
-    enum GameState
-    {
-        mainMenu,
-        gamePlay,
-        moveSelect,
-        itemSelect,
-        pauseMenu,
-        gameOver
-    }
-    enum MenuState//Item state will be put in at a later time
-    {
-        attack,
-        strongAttack,
-        item,
-        exit
-    }
-    enum ItemState
-    {
-        bomb,
-        potion,
-        exit
-    }
+  
     public class Game1 : Game
     {
         

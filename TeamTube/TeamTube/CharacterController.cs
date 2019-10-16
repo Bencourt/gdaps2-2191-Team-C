@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,21 @@ namespace TeamTube
 {
     class CharacterController
     {
-        public Character[,] characters;
+        private Character[,] characters;
         private Point nullPoint = new Point(-1,-1);
+        LinkedList<Character> allCharacters;
+
+        public Character[,] Characters
+        {
+            get { return characters; }
+            set { characters = value; }
+        }
+
+        public LinkedList<Character> AllCharacters
+        {
+            get { return allCharacters; }
+            set { allCharacters = value; }
+        }
 
         public CharacterController(int width, int height)
         {
@@ -47,5 +61,32 @@ namespace TeamTube
         {
             characters[x, y] = c;
         }
+
+        public void TakeTurns(KeyboardState keyboardState)
+        {
+            getCharacters();
+            foreach (Character c in allCharacters)
+            {
+                if(c.Turn)
+                {
+                    c.MakeDecision(keyboardState);
+                }
+                c.Update(keyboardState);
+            }
+        }
+
+        private LinkedList<Character> getCharacters()
+        {
+            allCharacters.Clear();
+            foreach (Character c in characters)
+            {
+                allCharacters.AddLast(c);
+            }
+            return allCharacters;
+        }
+
+
+
+
     }
 }

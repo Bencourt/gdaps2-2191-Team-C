@@ -37,58 +37,19 @@ namespace TeamTube
             int x = characterController.FindCharacter(this).X;
             int y = characterController.FindCharacter(this).Y;
 
-            if(tiles.levels[0][x+targetX,y+targetY] != TileType.floor)
-            {
-                return false;
-            }
-            else
+            if (tiles.levels[0][x + targetX, y + targetY] != TileType.Wall && characterController.Characters[x + targetX, y + targetY] == null)
             {
                 return true;
             }
+            else
+            {
+                return false;
+            }
         }
 
-        public void Update(KeyboardState keyboardState)
+        public override void Update(KeyboardState keyboardState)
         {
-            if (!moving)
-            {
-                if (keyboardState.IsKeyDown(Keys.Up))
-                {
-                    if (CheckTarget(0, -1))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 0, -1);
-                        yTarget += 32;
-                    }
-                }
-                if (keyboardState.IsKeyDown(Keys.Down))
-                {
-                    if (CheckTarget(0, 1))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 0, 1);
-                        yTarget -= 32;
-                    }
-                }
-                if (keyboardState.IsKeyDown(Keys.Left))
-                {
-                    if (CheckTarget(-1, 0))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, -1, 0);
-                        xTarget -= 32;
-                    }
-                }
-                if (keyboardState.IsKeyDown(Keys.Right))
-                {
-                    if (CheckTarget(1, 0))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 1, 0);
-                        xTarget += 32;
-                    }
-                }
-            }
-            else if (moving)
+            if (moving)
             {
                 if(xTarget > 0)
                 {
@@ -126,9 +87,61 @@ namespace TeamTube
                 }
             }
         }
+
+        public override void MakeDecision(KeyboardState keyboardState)
+        {
+            if (!moving)
+            {
+                if (keyboardState.IsKeyDown(Keys.Up))
+                {
+                    if (CheckTarget(0, -1))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, 0, -1);
+                        Turn = false;
+                        yTarget += 32;
+                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                    }
+                }
+                if (keyboardState.IsKeyDown(Keys.Down))
+                {
+                    if (CheckTarget(0, 1))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, 0, 1);
+                        yTarget -= 32;
+                        Turn = false;
+                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                    }
+                }
+                if (keyboardState.IsKeyDown(Keys.Left))
+                {
+                    if (CheckTarget(-1, 0))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, -1, 0);
+                        xTarget -= 32;
+                        Turn = false;
+                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                    }
+                }
+                if (keyboardState.IsKeyDown(Keys.Right))
+                {
+                    if (CheckTarget(1, 0))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, 1, 0);
+                        xTarget += 32;
+                        Turn = false;
+                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                    }
+                }
+            }
+        }
+
         public override void Death()
         {
-
+            throw new NotImplementedException();
         }
 
         public void Draw(SpriteBatch sb)

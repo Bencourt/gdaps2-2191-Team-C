@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,13 @@ namespace TeamTube
     {
         int health;
         int damageTaken;
+        bool turn;
+
+        public bool Turn
+        {
+            get { return turn; }
+            set { turn = value; }
+        }
 
         public int Health
         {
@@ -28,6 +36,8 @@ namespace TeamTube
             health -= damage;
         }
 
+        public abstract void MakeDecision(KeyboardState keyboardState);
+        public abstract void Update(KeyboardState keyboardState);
         public abstract void Death();
         public abstract bool CheckTarget(int x, int y);
     }
