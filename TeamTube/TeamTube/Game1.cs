@@ -160,7 +160,7 @@ namespace TeamTube
             }
             if (gState == GameState.moveSelect)
             {//Exiting the menu will be allowed once an attack method has been implemented
-                exitVector = new Vector2(20, 70);
+                exitVector = new Vector2(20, 70);//Scrolling through move options
                 if (mState == MenuState.exit)//Allows scrolling through the menu
                 {
                     if (kbState.IsKeyDown(Keys.Up))
@@ -241,6 +241,12 @@ namespace TeamTube
                 }
                 else if (iState==ItemState.potion)
                 {
+                    if (kbState.IsKeyDown(Keys.Enter))//If potion is used, heals and gets rid of potion
+                    {
+                        player.Health += 5;
+                        potionActive = false;
+                        gState = GameState.gamePlay;
+                    }
                     if (bombActive == true)//What is selected if bomb is or isn't activated and up is pressed
                     {
                         if (kbState.IsKeyDown(Keys.Up))
@@ -349,20 +355,28 @@ namespace TeamTube
                 }
                 if (mState == MenuState.attack)
                 {
-                    spriteBatch.DrawString(selectionText, "Attack", attackVector, Color.Blue);
+                    spriteBatch.DrawString(selectionText, "Attack(not functional)", attackVector, Color.Blue);
                 }
                 else
                 {
-                    spriteBatch.DrawString(selectionText, "Attack", attackVector, Color.White);
+                    spriteBatch.DrawString(selectionText, "Attack(not functional)", attackVector, Color.White);
                 }
                 if (mState == MenuState.strongAttack)
                 {
-                    spriteBatch.DrawString(selectionText, "Strong Attack", strongVector, Color.Blue);
+                    spriteBatch.DrawString(selectionText, "Strong Attack(not functional)", strongVector, Color.Blue);
                 }
                 else
                 {
-                    spriteBatch.DrawString(selectionText, "Strong Attack", strongVector, Color.White);
-                }                
+                    spriteBatch.DrawString(selectionText, "Strong Attack(not functional)", strongVector, Color.White);
+                }
+                if (mState == MenuState.item)
+                {
+                    spriteBatch.DrawString(selectionText, "Items(not functional)", itemVector, Color.Blue);
+                }
+                else
+                {
+                    spriteBatch.DrawString(selectionText, "Items(not functional)", itemVector, Color.White);
+                }
             }
             else if (gState == GameState.itemSelect)
             {
