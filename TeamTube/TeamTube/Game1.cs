@@ -48,7 +48,10 @@ namespace TeamTube
         Vector2 itemVector;
         Vector2 bombVector;
         Vector2 potionVector;
+        Rectangle selectionRect;
+        Texture2D selectionBGTxt;
         SpriteFont selectionText;
+
 
         public Game1()
         {
@@ -66,6 +69,7 @@ namespace TeamTube
         {
             // TODO: Add your initialization logic here
             gState = new GameState();
+            gState = GameState.gamePlay;
             mState = new MenuState();
             iState = new ItemState();
             kbState = Keyboard.GetState();
@@ -78,7 +82,8 @@ namespace TeamTube
             strongVector = new Vector2(20, 40);
             bombVector = new Vector2(20, 40);
             potionVector = new Vector2(20, 50);
-            selectionText = Content.Load<SpriteFont>("AttackFont");
+            selectionRect = new Rectangle(20, 30, 200, 70);
+            
             base.Initialize();
 
         }
@@ -97,7 +102,9 @@ namespace TeamTube
             floorTexture = Content.Load<Texture2D>("floor");
             entranceTexture = Content.Load<Texture2D>("entrance");
             exitTexture = Content.Load<Texture2D>("exit");
-
+            //Move select textures
+            selectionText = Content.Load<SpriteFont>("AttackFont");
+            selectionBGTxt=Content.Load<Texture2D>("SelectionBG");
             //load temp player texture
             playerTexture = Content.Load<Texture2D>("Player_Placeholder");
 
@@ -325,7 +332,10 @@ namespace TeamTube
             #endregion
 
             kbState = Keyboard.GetState();
-            player.Update(kbState);
+            if (gState == GameState.gamePlay)
+            {
+                player.Update(kbState);
+            }           
             //characterController.TakeTurns(kbState);
             base.Update(gameTime);
         }
@@ -343,6 +353,10 @@ namespace TeamTube
 
             tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
             player.Draw(spriteBatch);
+            if (gState == GameState.moveSelect || gState == GameState.itemSelect)
+            {
+                spriteBatch.Draw(selectionBGTxt, selectionRect, Color.White);
+            }
             if (gState == GameState.moveSelect)//What shows up in the attack selection
             {
                 if (mState == MenuState.exit)//changes colors if selected
@@ -371,16 +385,45 @@ namespace TeamTube
                 }
                 if (mState == MenuState.item)
                 {
-                    spriteBatch.DrawString(selectionText, "Items(not functional)", itemVector, Color.Blue);
+                    spriteBatch.DrawString(selectionText, "Items", itemVector, Color.Blue);
                 }
                 else
                 {
-                    spriteBatch.DrawString(selectionText, "Items(not functional)", itemVector, Color.White);
+                    spriteBatch.DrawString(selectionText, "Items", itemVector, Color.White);
                 }
             }
             else if (gState == GameState.itemSelect)
             {
-                
+                if (iState == ItemState.exit)//changes colors if selected
+                {
+                    spriteBatch.DrawString(selectionText, "Exit", exitVector, Color.Blue);
+                }
+                else
+                {
+                    spriteBatch.DrawString(selectionText, "Exit", exitVector, Color.White);
+                }
+                if (bombActive == true)
+                {
+                    if (iState == ItemState.bomb)
+                    {
+                        spriteBatch.DrawString(selectionText, "Bomb(not functional)", bombVector, Color.Blue);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(selectionText, "Bomb(not functional)", bombVector, Color.White);
+                    }
+                }
+                if (potionActive == true)
+                {
+                    if (iState == ItemState.potion)
+                    {
+                        spriteBatch.DrawString(selectionText, "Potion", potionVector, Color.Blue);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(selectionText, "Potion)", potionVector, Color.White);
+                    }
+                }
             }
             //end
             spriteBatch.End();
