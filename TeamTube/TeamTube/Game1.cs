@@ -98,15 +98,15 @@ namespace TeamTube
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //load temporary wall and floor assets
-            wallTexture = Content.Load<Texture2D>("wall");
-            floorTexture = Content.Load<Texture2D>("floor");
-            entranceTexture = Content.Load<Texture2D>("entrance");
+            wallTexture = Content.Load<Texture2D>("Wall_tile");
+            floorTexture = Content.Load<Texture2D>("Ground_tile");
+            entranceTexture = Content.Load<Texture2D>("Entrance_tile");
             exitTexture = Content.Load<Texture2D>("exit");
             //Move select textures
             selectionText = Content.Load<SpriteFont>("AttackFont");
             selectionBGTxt=Content.Load<Texture2D>("SelectionBG");
             //load temp player texture
-            playerTexture = Content.Load<Texture2D>("Player_Placeholder");
+            playerTexture = Content.Load<Texture2D>("player");
 
             //instantiate Tile Controller
             tileController = new TileController(26,26);
