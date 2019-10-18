@@ -10,6 +10,8 @@ During the first milestone, our team solidified and brought together all of the 
 
 ## Milestone 2
 
+During our second milestone, we started working on the actual meat and potatoes of our game. The tasks were divided as such: Benjamin takes the character and enemy code, jonathan creates the level editor and tile dungeon creation, Sky works on camera code, Nick makes the menu system, and neville researches OpenGL lighting. Most of these tasks were completed during the time we had for this milestone, except for the external tool and the enemy implementation. The camera movement is implemented in a separate project, we just need to connect the code to our main project. 
+
 ## Milestone 3
 
 ## Milestone 4
