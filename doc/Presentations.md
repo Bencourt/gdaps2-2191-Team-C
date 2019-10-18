@@ -18,6 +18,7 @@ With each milestone, **add a link in the table above to your presentation slides
   We started the presentation planning on September 30th, and during our meeting on Oct. 1, we started putting it together. Tasks were mostly split up through the trello and people were reminded of their duties through the discord. To practice, we planned out our roles and slides through the discord voice chat as well.
 
 ## Milestone 2
+  We wrote the presentation 2 together in a meeting on the thursday before the presentation day. We split up the tasks, worked together, and edited each other's slides until the presentation was complete.
 
 ## Milestone 3
 
