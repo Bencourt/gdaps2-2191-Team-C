@@ -62,5 +62,10 @@ namespace TeamTube
             sb.Draw(enemyTexture, enemyRectangle, null, Color.White);
         }
 
+        public override void MakeDecision(KeyboardState keyboardState)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

@@ -326,7 +326,7 @@ namespace TeamTube
 
             kbState = Keyboard.GetState();
             player.Update(kbState);
-
+            //characterController.TakeTurns(kbState);
             base.Update(gameTime);
         }
 

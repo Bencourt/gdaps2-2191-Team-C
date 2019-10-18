@@ -65,13 +65,16 @@ namespace TeamTube
         public void TakeTurns(KeyboardState keyboardState)
         {
             getCharacters();
-            foreach (Character c in allCharacters)
+            if (allCharacters != null)
             {
-                if(c.Turn)
+                foreach (Character c in allCharacters)
                 {
-                    c.MakeDecision(keyboardState);
+                    if (c.Turn)
+                    {
+                        c.MakeDecision(keyboardState);
+                    }
+                    c.Update(keyboardState);
                 }
-                c.Update(keyboardState);
             }
         }
 

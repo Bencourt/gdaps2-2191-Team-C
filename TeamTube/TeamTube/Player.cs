@@ -49,6 +49,8 @@ namespace TeamTube
 
         public override void Update(KeyboardState keyboardState)
         {
+            Turn = true;
+            MakeDecision(keyboardState);
             if (moving)
             {
                 if(xTarget > 0)
@@ -100,7 +102,7 @@ namespace TeamTube
                         characterController.MoveCharacter(this, 0, -1);
                         Turn = false;
                         yTarget += 32;
-                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Down))
@@ -111,7 +113,7 @@ namespace TeamTube
                         characterController.MoveCharacter(this, 0, 1);
                         yTarget -= 32;
                         Turn = false;
-                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Left))
@@ -122,7 +124,7 @@ namespace TeamTube
                         characterController.MoveCharacter(this, -1, 0);
                         xTarget -= 32;
                         Turn = false;
-                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Right))
@@ -133,7 +135,7 @@ namespace TeamTube
                         characterController.MoveCharacter(this, 1, 0);
                         xTarget += 32;
                         Turn = false;
-                        characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                     }
                 }
             }
