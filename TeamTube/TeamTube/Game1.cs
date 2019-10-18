@@ -37,6 +37,7 @@ namespace TeamTube
         MenuState mState;
         ItemState iState;
         KeyboardState kbState;
+        KeyboardState previousKbState;
 
         //check if items have been picked up
         bool bombActive;
@@ -73,6 +74,7 @@ namespace TeamTube
             mState = new MenuState();
             iState = new ItemState();
             kbState = Keyboard.GetState();
+            previousKbState = Keyboard.GetState();
             bombActive = false;
             potionActive = false;
             playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
@@ -130,6 +132,25 @@ namespace TeamTube
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// private bool SingleKeyPress(Keys key)//Checks if enter has been pressed for more than one frame
+        public bool PreviousKbState(Keys key)
+        {
+            if (kbState.IsKeyDown(key) == true)
+            {
+                if (previousKbState != kbState)
+                {
+                    previousKbState = kbState;
+                    return true;
+                }
+                //previousKbState = kbState;
+                return false;
+            }
+            else
+            {
+                previousKbState = kbState;
+                return false;
+            }
+        }
         protected override void Update(GameTime gameTime)
         {
             #region menu logic
@@ -168,13 +189,15 @@ namespace TeamTube
             if (gState == GameState.moveSelect)
             {//Exiting the menu will be allowed once an attack method has been implemented
                 exitVector = new Vector2(20, 70);//Scrolling through move options
+                
+                
                 if (mState == MenuState.exit)//Allows scrolling through the menu
                 {
-                    if (kbState.IsKeyDown(Keys.Up))
+                    if (PreviousKbState(Keys.Up))
                     {
                         mState = MenuState.item;
                     }
-                    else if (kbState.IsKeyDown(Keys.Down))
+                    else if (PreviousKbState(Keys.Down))
                     {
                         mState = MenuState.strongAttack;
                     }
@@ -185,41 +208,42 @@ namespace TeamTube
                 }
                 else if (mState == MenuState.item)
                 {
-                    if (kbState.IsKeyDown(Keys.Up))
+                    if (PreviousKbState(Keys.Up))
                     {
                         mState = MenuState.attack;
                     }
-                    else if (kbState.IsKeyDown(Keys.Down))
+                    else if (PreviousKbState(Keys.Down))
                     {
                         mState = MenuState.exit;
                     }
-                    else if (kbState.IsKeyDown(Keys.Enter))
+                    else if (PreviousKbState(Keys.Enter))
                     {
                         gState = GameState.itemSelect;
                     }
                 }
                 else if (mState == MenuState.attack)
                 {
-                    if (kbState.IsKeyDown(Keys.Up))
+                    if (PreviousKbState(Keys.Up))
                     {
                         mState = MenuState.strongAttack;
                     }
-                    else if (kbState.IsKeyDown(Keys.Down))
+                    else if (PreviousKbState(Keys.Down))
                     {
                         mState = MenuState.item;
                     }
                 }
                 else if (mState == MenuState.strongAttack)
                 {
-                    if (kbState.IsKeyDown(Keys.Up))
+                    if (PreviousKbState(Keys.Up))
                     {
                         mState = MenuState.exit;
                     }
-                    else if (kbState.IsKeyDown(Keys.Down))
+                    else if (PreviousKbState(Keys.Down))
                     {
                         mState = MenuState.attack;
                     }
                 }
+            
             }
             if (gState == GameState.itemSelect)//Item logic
             {
@@ -228,19 +252,19 @@ namespace TeamTube
                     if (potionActive == true)//What is selected if potion is or isn't activated and down is pressed
                     {
                         //coordinate change
-                        if (kbState.IsKeyDown(Keys.Down))
+                        if (PreviousKbState(Keys.Down))
                         {
                             iState = ItemState.potion;
                         }
                     }
                     else
                     {
-                        if (kbState.IsKeyDown(Keys.Down))
+                        if (PreviousKbState(Keys.Down))
                         {
                             iState = ItemState.exit;
                         }
                     }
-                    if (kbState.IsKeyDown(Keys.Up))//What happens when up is pressed, whethere or not potion is activated
+                    if (PreviousKbState(Keys.Up))//What happens when up is pressed, whethere or not potion is activated
                     {
                         iState = ItemState.exit;
                     }
@@ -248,7 +272,7 @@ namespace TeamTube
                 }
                 else if (iState==ItemState.potion)
                 {
-                    if (kbState.IsKeyDown(Keys.Enter))//If potion is used, heals and gets rid of potion
+                    if (PreviousKbState(Keys.Enter))//If potion is used, heals and gets rid of potion
                     {
                         player.Health += 5;
                         potionActive = false;
@@ -256,19 +280,19 @@ namespace TeamTube
                     }
                     if (bombActive == true)//What is selected if bomb is or isn't activated and up is pressed
                     {
-                        if (kbState.IsKeyDown(Keys.Up))
+                        if (PreviousKbState(Keys.Up))
                         {
                             iState = ItemState.bomb;
                         }
                     }
                     else
                     {
-                        if (kbState.IsKeyDown(Keys.Up))
+                        if (PreviousKbState(Keys.Up))
                         {
                             iState = ItemState.exit;
                         }
                     }
-                    if (kbState.IsKeyDown(Keys.Down))//What happens when down is pressed, whethere or not bomb is activated
+                    if (PreviousKbState(Keys.Down))//What happens when down is pressed, whethere or not bomb is activated
                     {
                         iState = ItemState.exit;
                     }
@@ -277,30 +301,30 @@ namespace TeamTube
                 {
                     if (bombActive == true && potionActive == true)//if both items are active
                     {
-                        if (kbState.IsKeyDown(Keys.Up))
+                        if (PreviousKbState(Keys.Up))
                         {
                             iState = ItemState.potion;
                         }
-                        else if (kbState.IsKeyDown(Keys.Down))
+                        else if (PreviousKbState(Keys.Down))
                         {
                             iState = ItemState.bomb;
                         }
                     }
                     else if (bombActive == true && potionActive != true)//if only bomb is active
                     {
-                        if (kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down))
+                        if (PreviousKbState(Keys.Up) || PreviousKbState(Keys.Down))
                         {
                             iState = ItemState.bomb;
                         }
                     }
                     else if (bombActive != true && potionActive == true)//if only potion is active
                     {
-                        if (kbState.IsKeyDown(Keys.Up) || kbState.IsKeyDown(Keys.Down))
+                        if (PreviousKbState(Keys.Up) || PreviousKbState(Keys.Down))
                         {
                             iState = ItemState.potion;
                         }
                     }
-                    if (kbState.IsKeyDown(Keys.Enter))//if enter is pressed, go back to move select
+                    if (PreviousKbState(Keys.Enter))//if enter is pressed, go back to move select
                     {
                         gState = GameState.moveSelect;
                     }
