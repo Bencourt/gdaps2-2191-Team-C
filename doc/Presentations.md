@@ -3,7 +3,7 @@
 | Milestone | Presentation Link |
 |-----------|-------------------|
 | 1: Design and Architecture | https://docs.google.com/presentation/d/1lRF5FHr1asR7D4dBH51GSXh4WBgxuHAN9zrDsg0Yae4/edit?usp=sharing
-| 2: Bare Bones Game | [Milestone 2 Presentation](https://docs.google.com/presentation/....) |
+| 2: Bare Bones Game | https://docs.google.com/presentation/d/10jOtTybDAxEro_E7cVGzOYc1_82qrQuanN2Lwf9gBkI/edit#slide=id.p |
 | 3: First Playable | [Milestone 3 Presentation](https://docs.google.com/presentation/....) |
 | 4: A Polished Game | [Milestone 4 Presentation](https://docs.google.com/presentation/....) |
 
