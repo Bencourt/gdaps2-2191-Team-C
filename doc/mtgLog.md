@@ -18,7 +18,7 @@
 - *10/17* (4 present): Presentation written 
 
 ## Milestone 3
-- *Date* (# team members present): topics discussed
+- *10/22* (3 present): task division and completion for milestone 3
 - ...
 
 ## Milestone 4
