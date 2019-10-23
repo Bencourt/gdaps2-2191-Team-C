@@ -58,6 +58,7 @@ namespace TeamTube
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferHeight = 1000;
         }
 
         /// <summary>
@@ -68,6 +69,8 @@ namespace TeamTube
         /// </summary>
         protected override void Initialize()
         {
+            //window dimentions
+            
             // TODO: Add your initialization logic here
             gState = new GameState();
             gState = GameState.gamePlay;
@@ -133,28 +136,24 @@ namespace TeamTube
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// private bool SingleKeyPress(Keys key)//Checks if enter has been pressed for more than one frame
+        //single key press is renamed to previous keyboard state
         public bool PreviousKbState(Keys key)
         {
-            if (kbState.IsKeyDown(key) == true)
+            //checks to see if the key is pressed now, but not pressed before
+            if(kbState.IsKeyDown(key) && previousKbState.IsKeyUp(key))
             {
-                if (previousKbState != kbState)
-                {
-                    previousKbState = kbState;
-                    return true;
-                }
-                //previousKbState = kbState;
-                return false;
+                return true;
             }
-            else
-            {
-                previousKbState = kbState;
-                return false;
-            }
+            return false;
         }
         protected override void Update(GameTime gameTime)
         {
+            previousKbState = kbState;
+            kbState = Keyboard.GetState();
+
+
             #region menu logic
-            
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (gState == GameState.mainMenu)
@@ -355,7 +354,7 @@ namespace TeamTube
             
             #endregion
 
-            kbState = Keyboard.GetState();
+            
             if (gState == GameState.gamePlay)
             {
                 player.Update(kbState);
