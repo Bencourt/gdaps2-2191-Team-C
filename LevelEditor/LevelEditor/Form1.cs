@@ -85,9 +85,10 @@ namespace LevelEditor
                     tileButtons[x, y].BackColor = Color.Black;
                     //set the text to w
                     tileButtons[x, y].Text = "w";
-                   
+
                     //set the click event to tile button click
-                    //tileButtons[x, y].Click += tileButton_Click(tileButtons[x, y]);
+                    tileButtons[x, y].Click += new EventHandler(TileButton_Click);
+
 
                     tileButtons[x, y].CreateGraphics();
                 }
@@ -139,32 +140,36 @@ namespace LevelEditor
 
         */
 
-        private void tileButton_Click(int x, int y)
+        private void TileButton_Click(object sender, EventArgs e)
         {
-            //change this sender's text and tile state based on what the toolstate is
-            switch (toolState)
-            {
-                case ToolState.Wall:
-                    tileButtons[x, y].Text = "w";
-                    tileButtons[x, y].BackColor = Color.Black;
-                    tileState[x, y] = TileState.Wall;
-                    break;
-                case ToolState.Floor:
-                    tileButtons[x, y].Text = "f";
-                    tileButtons[x, y].BackColor = Color.White;
-                    tileState[x, y] = TileState.Floor;
-                    break;
-                case ToolState.Entrance:
-                    tileButtons[x, y].Text = "e";
-                    tileButtons[x, y].BackColor = Color.Blue;
-                    tileState[x, y] = TileState.Entrance;
-                    break;
-                case ToolState.Exit:
-                    tileButtons[x, y].Text = "x";
-                    tileButtons[x, y].BackColor = Color.Green;
-                    tileState[x, y] = TileState.Exit;
-                    break;
-            }
+            
+            
+                Button button = (Button)sender;
+                //change this sender's text and tile state based on what the toolstate is
+                switch (toolState)
+                {
+                    case ToolState.Wall:
+                        button.Text = "w";
+                        button.BackColor = Color.Black;
+                        //tileState[x, y] = TileState.Wall;
+                        break;
+                    case ToolState.Floor:
+                        button.Text = "f";
+                        button.BackColor = Color.White;
+                        //tileState[x, y] = TileState.Floor;
+                        break;
+                    case ToolState.Entrance:
+                        button.Text = "e";
+                        button.BackColor = Color.Blue;
+                        //tileState[x, y] = TileState.Entrance;
+                        break;
+                    case ToolState.Exit:
+                        button.Text = "x";
+                        button.BackColor = Color.Green;
+                        //tileState[x, y] = TileState.Exit;
+                        break;
+                }
+            
         }
 
         private void ToolStripOpen_Click(object sender, EventArgs e)
@@ -226,6 +231,30 @@ namespace LevelEditor
                     }
                 }
             }
+        }
+
+        private void WallToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //set toolstate to wall
+            toolState = ToolState.Wall;
+        }
+
+        private void FloorToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //set toolstate to floor
+            toolState = ToolState.Floor;
+        }
+
+        private void EntranceToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //set toolstate to entrance
+            toolState = ToolState.Entrance;
+        }
+
+        private void ExitToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //set toolstate to exit
+            toolState = ToolState.Exit;
         }
     }
 }
