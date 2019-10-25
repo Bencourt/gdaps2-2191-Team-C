@@ -10,7 +10,11 @@ namespace TeamTube
   
     public class Game1 : Game
     {
-        
+        public static int screenWidth;
+        public static int screenHeight;
+
+        //Camera
+        Camera camera;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -88,7 +92,9 @@ namespace TeamTube
             bombVector = new Vector2(20, 40);
             potionVector = new Vector2(20, 50);
             selectionRect = new Rectangle(20, 30, 200, 70);
-            
+            screenHeight = graphics.GraphicsDevice.Viewport.Height;
+            screenWidth = graphics.GraphicsDevice.Viewport.Height;
+            camera = new Camera();
             base.Initialize();
 
         }
@@ -358,6 +364,7 @@ namespace TeamTube
             if (gState == GameState.gamePlay)
             {
                 player.Update(kbState);
+                camera.Follow(player);
             }           
             //characterController.TakeTurns(kbState);
             base.Update(gameTime);
@@ -372,7 +379,7 @@ namespace TeamTube
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //begin
-            spriteBatch.Begin();
+            spriteBatch.Begin(transformMatrix: camera.Transform);
 
             tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
             player.Draw(spriteBatch);

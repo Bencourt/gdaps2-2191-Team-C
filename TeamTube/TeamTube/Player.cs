@@ -19,6 +19,11 @@ namespace TeamTube
         CharacterController characterController;
         TileController tiles;
 
+        public Rectangle PlayerRectangle
+        {
+            get { return playerRectangle; }
+        }
+
         public Player(CharacterController characterController, TileController tiles, int health, Rectangle playerRectangle, Texture2D playerTexture)
         {
             xTarget = 0;
