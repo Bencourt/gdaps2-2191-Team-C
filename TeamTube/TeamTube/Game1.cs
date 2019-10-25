@@ -173,6 +173,7 @@ namespace TeamTube
                     {
                         gState = GameState.moveSelect;
                     }
+                    player.Update(kbState);
                     break;
                 case GameState.pauseMenu:
                     if (kbState.IsKeyDown(Keys.Enter))
@@ -237,126 +238,121 @@ namespace TeamTube
                             break;
                     }
                     break;
+                case GameState.itemSelect:
+                    switch (iState)
+                    {
+                        case ItemState.bomb:
+                            if (potionActive == true)//What is selected if potion is or isn't activated and down is pressed
+                            {
+                                //coordinate change
+                                if (PreviousKbState(Keys.Down))
+                                {
+                                    iState = ItemState.potion;
+                                }
+                            }
+                            else
+                            {
+                                if (PreviousKbState(Keys.Down))
+                                {
+                                    iState = ItemState.exit;
+                                }
+                            }
+                            if (PreviousKbState(Keys.Up))//What happens when up is pressed, whethere or not potion is activated
+                            {
+                                iState = ItemState.exit;
+                            }
+                            break;
+                        case ItemState.potion:
+                            if (PreviousKbState(Keys.Enter))//If potion is used, heals and gets rid of potion
+                            {
+                                player.Health += 5;
+                                potionActive = false;
+                                gState = GameState.gamePlay;
+                            }
+                            if (bombActive == true)//What is selected if bomb is or isn't activated and up is pressed
+                            {
+                                if (PreviousKbState(Keys.Up))
+                                {
+                                    iState = ItemState.bomb;
+                                }
+                            }
+                            else
+                            {
+                                if (PreviousKbState(Keys.Up))
+                                {
+                                    iState = ItemState.exit;
+                                }
+                            }
+                            if (PreviousKbState(Keys.Down))//What happens when down is pressed, whethere or not bomb is activated
+                            {
+                                iState = ItemState.exit;
+                            }
+                            break;
+                        case ItemState.exit:
+                            if (bombActive == true && potionActive == true)//if both items are active
+                            {
+                                if (PreviousKbState(Keys.Up))
+                                {
+                                    iState = ItemState.potion;
+                                }
+                                else if (PreviousKbState(Keys.Down))
+                                {
+                                    iState = ItemState.bomb;
+                                }
+                            }
+                            else if (bombActive == true && potionActive != true)//if only bomb is active
+                            {
+                                if (PreviousKbState(Keys.Up) || PreviousKbState(Keys.Down))
+                                {
+                                    iState = ItemState.bomb;
+                                }
+                            }
+                            else if (bombActive != true && potionActive == true)//if only potion is active
+                            {
+                                if (PreviousKbState(Keys.Up) || PreviousKbState(Keys.Down))
+                                {
+                                    iState = ItemState.potion;
+                                }
+                            }
+                            if (PreviousKbState(Keys.Enter))//if enter is pressed, go back to move select
+                            {
+                                gState = GameState.moveSelect;
+                            }
+                            break;
+                    }
+                    if (bombActive == true && potionActive == true)
+                    {
+                        bombVector = new Vector2(20, 40);
+                        potionVector = new Vector2(20, 50);
+                        exitVector = new Vector2(20, 60);
+                    }
+                    else if (bombActive == true && potionActive != true)
+                    {
+                        bombVector = new Vector2(20, 40);
+                        exitVector = new Vector2(20, 50);
+                    }
+                    else if (bombActive != true && potionActive == true)
+                    {
+                        potionVector = new Vector2(20, 40);
+                        exitVector = new Vector2(20, 50);
+                    }
+                    else
+                    {
+                        exitVector = new Vector2(20, 40);
+                    }
+                    break;
             }
             
             
             
            
-            if (gState == GameState.itemSelect)//Item logic
-            {
-                if (iState == ItemState.bomb)
-                {
-                    if (potionActive == true)//What is selected if potion is or isn't activated and down is pressed
-                    {
-                        //coordinate change
-                        if (PreviousKbState(Keys.Down))
-                        {
-                            iState = ItemState.potion;
-                        }
-                    }
-                    else
-                    {
-                        if (PreviousKbState(Keys.Down))
-                        {
-                            iState = ItemState.exit;
-                        }
-                    }
-                    if (PreviousKbState(Keys.Up))//What happens when up is pressed, whethere or not potion is activated
-                    {
-                        iState = ItemState.exit;
-                    }
-                    //will put coordinates after assets have been added in.
-                }
-                else if (iState==ItemState.potion)
-                {
-                    if (PreviousKbState(Keys.Enter))//If potion is used, heals and gets rid of potion
-                    {
-                        player.Health += 5;
-                        potionActive = false;
-                        gState = GameState.gamePlay;
-                    }
-                    if (bombActive == true)//What is selected if bomb is or isn't activated and up is pressed
-                    {
-                        if (PreviousKbState(Keys.Up))
-                        {
-                            iState = ItemState.bomb;
-                        }
-                    }
-                    else
-                    {
-                        if (PreviousKbState(Keys.Up))
-                        {
-                            iState = ItemState.exit;
-                        }
-                    }
-                    if (PreviousKbState(Keys.Down))//What happens when down is pressed, whethere or not bomb is activated
-                    {
-                        iState = ItemState.exit;
-                    }
-                }
-                else if (iState == ItemState.exit)
-                {
-                    if (bombActive == true && potionActive == true)//if both items are active
-                    {
-                        if (PreviousKbState(Keys.Up))
-                        {
-                            iState = ItemState.potion;
-                        }
-                        else if (PreviousKbState(Keys.Down))
-                        {
-                            iState = ItemState.bomb;
-                        }
-                    }
-                    else if (bombActive == true && potionActive != true)//if only bomb is active
-                    {
-                        if (PreviousKbState(Keys.Up) || PreviousKbState(Keys.Down))
-                        {
-                            iState = ItemState.bomb;
-                        }
-                    }
-                    else if (bombActive != true && potionActive == true)//if only potion is active
-                    {
-                        if (PreviousKbState(Keys.Up) || PreviousKbState(Keys.Down))
-                        {
-                            iState = ItemState.potion;
-                        }
-                    }
-                    if (PreviousKbState(Keys.Enter))//if enter is pressed, go back to move select
-                    {
-                        gState = GameState.moveSelect;
-                    }
-                }
-                if (bombActive == true && potionActive == true)
-                {
-                    bombVector = new Vector2(20, 40);
-                    potionVector = new Vector2(20, 50);
-                    exitVector = new Vector2(20, 60);
-                }
-                else if (bombActive == true && potionActive != true)
-                {
-                    bombVector = new Vector2(20, 40);
-                    exitVector = new Vector2(20, 50);
-                }
-                else if (bombActive != true && potionActive == true)
-                {
-                    potionVector = new Vector2(20, 40);
-                    exitVector = new Vector2(20, 50);
-                }
-                else
-                {
-                    exitVector = new Vector2(20, 40);
-                }
-            }
+            
 
             // TODO: Add your update logic here
             
             #endregion
 
-            
-            if (gState == GameState.gamePlay)
-            {
-                player.Update(kbState);
-            }           
+              
             //characterController.TakeTurns(kbState);
             base.Update(gameTime);
         }
