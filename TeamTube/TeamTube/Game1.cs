@@ -156,94 +156,92 @@ namespace TeamTube
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (gState == GameState.mainMenu)
+            switch (gState)
             {
-                if (kbState.IsKeyDown(Keys.Enter))
-                {
-                    gState = GameState.gamePlay;
-                }
-            }
-            if (gState == GameState.gamePlay)
-            {
-                if (kbState.IsKeyDown(Keys.Space))
-                {
-                    gState = GameState.pauseMenu;
-                }
-                if (kbState.IsKeyDown(Keys.F))
-                {
-                    gState = GameState.moveSelect;
-                }
-            }
-            if (gState == GameState.pauseMenu)
-            {
-                if (kbState.IsKeyDown(Keys.Enter))
-                {
-                   gState=GameState.gamePlay;//Returns to Gameplay state if enter is pressed
-                }
-                else if (kbState.IsKeyDown(Keys.X))
-                {
-                    gState = GameState.mainMenu;//Returns to menu if x is pressed
-                }
-            }
-            if (gState == GameState.moveSelect)
-            {//Exiting the menu will be allowed once an attack method has been implemented
-                exitVector = new Vector2(20, 70);//Scrolling through move options
-                
-                
-                if (mState == MenuState.exit)//Allows scrolling through the menu
-                {
-                    if (PreviousKbState(Keys.Up))
-                    {
-                        mState = MenuState.item;
-                    }
-                    else if (PreviousKbState(Keys.Down))
-                    {
-                        mState = MenuState.strongAttack;
-                    }
-                    else if (kbState.IsKeyDown(Keys.Enter))
+                case GameState.mainMenu:
+                    if (kbState.IsKeyDown(Keys.Enter))
                     {
                         gState = GameState.gamePlay;
                     }
-                }
-                else if (mState == MenuState.item)
-                {
-                    if (PreviousKbState(Keys.Up))
+                    break;
+                case GameState.gamePlay:
+                    if (kbState.IsKeyDown(Keys.Space))
                     {
-                        mState = MenuState.attack;
+                        gState = GameState.pauseMenu;
                     }
-                    else if (PreviousKbState(Keys.Down))
+                    if (kbState.IsKeyDown(Keys.F))
                     {
-                        mState = MenuState.exit;
+                        gState = GameState.moveSelect;
                     }
-                    else if (PreviousKbState(Keys.Enter))
+                    break;
+                case GameState.pauseMenu:
+                    if (kbState.IsKeyDown(Keys.Enter))
                     {
-                        gState = GameState.itemSelect;
+                        gState = GameState.gamePlay;//Returns to Gameplay state if enter is pressed
                     }
-                }
-                else if (mState == MenuState.attack)
-                {
-                    if (PreviousKbState(Keys.Up))
+                    else if (kbState.IsKeyDown(Keys.X))
                     {
-                        mState = MenuState.strongAttack;
+                        gState = GameState.mainMenu;//Returns to menu if x is pressed
                     }
-                    else if (PreviousKbState(Keys.Down))
+                    break;
+                case GameState.moveSelect:
+                    switch (mState)
                     {
-                        mState = MenuState.item;
+                        case MenuState.exit:
+                            if (PreviousKbState(Keys.Up))
+                            {
+                                mState = MenuState.item;
+                            }
+                            else if (PreviousKbState(Keys.Down))
+                            {
+                                mState = MenuState.strongAttack;
+                            }
+                            else if (kbState.IsKeyDown(Keys.Enter))
+                            {
+                                gState = GameState.gamePlay;
+                            }
+                            break;
+                        case MenuState.item:
+                            if (PreviousKbState(Keys.Up))
+                            {
+                                mState = MenuState.attack;
+                            }
+                            else if (PreviousKbState(Keys.Down))
+                            {
+                                mState = MenuState.exit;
+                            }
+                            else if (PreviousKbState(Keys.Enter))
+                            {
+                                gState = GameState.itemSelect;
+                            }
+                            break;
+                        case MenuState.attack:
+                            if (PreviousKbState(Keys.Up))
+                            {
+                                mState = MenuState.strongAttack;
+                            }
+                            else if (PreviousKbState(Keys.Down))
+                            {
+                                mState = MenuState.item;
+                            }
+                            break;
+                        case MenuState.strongAttack:
+                            if (PreviousKbState(Keys.Up))
+                            {
+                                mState = MenuState.exit;
+                            }
+                            else if (PreviousKbState(Keys.Down))
+                            {
+                                mState = MenuState.attack;
+                            }
+                            break;
                     }
-                }
-                else if (mState == MenuState.strongAttack)
-                {
-                    if (PreviousKbState(Keys.Up))
-                    {
-                        mState = MenuState.exit;
-                    }
-                    else if (PreviousKbState(Keys.Down))
-                    {
-                        mState = MenuState.attack;
-                    }
-                }
-            
+                    break;
             }
+            
+            
+            
+           
             if (gState == GameState.itemSelect)//Item logic
             {
                 if (iState == ItemState.bomb)
