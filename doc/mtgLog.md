@@ -19,7 +19,8 @@
 
 ## Milestone 3
 - *10/22* (3 present): task division and completion for milestone 3
-- ...
+- *10/25* (4 present): work day 
+- *10/29* (3 present): checkup on group's current tasks and general workday
 
 ## Milestone 4
 - *Date* (# team members present): topics discussed

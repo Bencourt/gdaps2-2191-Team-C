@@ -34,11 +34,6 @@ namespace LevelEditor
         StreamWriter writer;
         //create a new stream
         Stream stream;
-
-        //level name
-        string levelName;
-        //level path
-        string levelPath;
         
         //toolstate
         ToolState toolState;
@@ -50,8 +45,7 @@ namespace LevelEditor
         public levelEditor()
         {
             InitializeComponent();
-            levelName = "MyLevel";
-            levelPath = "../../../../TeamTube/TeamTube/Levels";
+            
             //set toolstate to wall initially
             toolState = ToolState.Wall;
             tileState = new TileState[26, 26];
@@ -63,9 +57,9 @@ namespace LevelEditor
             //make tile buttons into a 26 by 26 array of buttons
             tileButtons = new System.Windows.Forms.Button[26, 26];
             //set levelname to MyLevel
-            levelName = "MyLevel";
+            
             //default path is ../../../../TeamTube/TeamTube/Levels/
-            levelPath = "../../../../TeamTube/TeamTube/Levels/";
+            
             //for each of them
             for ( int y = 0; y < 26; y++)
             {
@@ -88,61 +82,18 @@ namespace LevelEditor
                     tileButtons[x, y].Text = "w";
 
                     //set the click event to tile button click
-                    tileButtons[x, y].Click += new EventHandler(TileButton_Click);
-
+                    tileButtons[x, y].MouseDown += new MouseEventHandler(TileButton_Click);
+                    
 
                     tileButtons[x, y].CreateGraphics();
                 }
             }
         } 
 
-       
-        
-
-        // OLD CODE for the old setup
-        /*
-        private void levelNameInput_TextChanged(object sender, EventArgs e)
-        {
-            //change the level name
-            levelName = levelNameInput.Text;
-        }
-
-        private void filePathInput_TextChanged(object sender, EventArgs e)
-        {
-            //change the path name
-            levelPath = filePathInput.Text;
-        }
-
-        private void ToolButton_Click(object sender, EventArgs e)
-        {
-            //figure out which button was pressed and change the tool state to it
-            if (sender == wallButton) 
-            { 
-                toolState = ToolState.Wall; 
-            }
-            if (sender == floorButton) 
-            { 
-                toolState = ToolState.Floor; 
-            }
-            if (sender == entranceButton) 
-            { 
-                toolState = ToolState.Entrance; 
-            }
-            if (sender == exitButton) 
-            { 
-                toolState = ToolState.Exit; 
-            }
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            //save the level based on the name, path and level layout
-        }
-
-        */
 
         private void TileButton_Click(object sender, EventArgs e)
         {
+            //check if mousestate is down
             
             
                 Button button = (Button)sender;
