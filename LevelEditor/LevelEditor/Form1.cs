@@ -32,13 +32,14 @@ namespace LevelEditor
         //IO stuff
         StreamReader reader;
         StreamWriter writer;
+        //create a new stream
+        Stream stream;
 
         //level name
         string levelName;
         //level path
         string levelPath;
-        //String to hold level data
-        string levelString;
+        
         //toolstate
         ToolState toolState;
         //tilestate
@@ -183,12 +184,16 @@ namespace LevelEditor
 
         private void LoadLevelDialouge_FileOk(object sender, CancelEventArgs e)
         {
+            
 
             //the file is good, read it and save it in the level array
+             stream = loadLevelDialouge.OpenFile();
 
-            
             //reader is set to selected file
-            reader = new StreamReader("../../../../TeamTube/TeamTube/Levels/LevelExample.txt");
+            //reader = new StreamReader("../../../../TeamTube/TeamTube/Levels/LevelExample.txt");
+
+            //reader is instead set to the stream of the file opened
+            reader = new StreamReader(stream);
             //go character by character and set the tile to the read character
             for(int y = 0; y < 26; y++)
             {
@@ -231,6 +236,8 @@ namespace LevelEditor
                     }
                 }
             }
+            //close the reader
+            reader.Close();
         }
 
         private void WallToolToolStripMenuItem_Click(object sender, EventArgs e)
@@ -255,6 +262,66 @@ namespace LevelEditor
         {
             //set toolstate to exit
             toolState = ToolState.Exit;
+        }
+
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //if the tile buttons are null, don't do anything
+            if (tileButtons[0, 0] == null)
+            {
+
+            }
+            //otherwise open the save dialouge
+            else
+            {
+                levelSaveFileDialouge.ShowDialog();
+            }
+        }
+
+        private void LevelSaveFileDialouge_FileOk(object sender, CancelEventArgs e)
+        {
+            //need a FileStream to save to a file
+            FileStream newStream;
+
+            stream = levelSaveFileDialouge.OpenFile();
+            newStream = (FileStream)stream;
+
+            writer = new StreamWriter(newStream);
+            //save the level layout to  the filepath
+            //go character by character and set the tile to the written character
+            for (int y = 0; y < 26; y++)
+            {
+                for (int x = 0; x < 26; x++)
+                {
+                    string tile = tileButtons[x, y].Text;
+                    //determine what to write to the file
+                    switch (tile)
+                    {
+                        case "w":
+                            //writes 0 to the file
+                            writer.Write("0");
+                            break;
+                        case "f":
+                            //writes 1 to the file
+                            writer.Write("1");
+                            break;
+                        case "e":
+                            //writes 2 to the file
+                            writer.Write("2");
+                            break;
+                        case "x":
+                            //writes 3 to the file
+                            writer.Write("3");
+                            break;
+                        default:
+                            //writes 0 to the file
+                            writer.Write("0");
+                            break;
+                    }
+                    
+                }
+            }
+            writer.Close();
         }
     }
 }
