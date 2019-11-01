@@ -21,6 +21,7 @@
 - *10/22* (3 present): task division and completion for milestone 3
 - *10/25* (4 present): work day 
 - *10/29* (3 present): checkup on group's current tasks and general workday
+- *11/01* (3 present): assignment of minor requirements: win state and menu state
 
 ## Milestone 4
 - *Date* (# team members present): topics discussed
