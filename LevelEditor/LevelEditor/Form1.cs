@@ -40,7 +40,7 @@ namespace LevelEditor
         //tilestate
         public TileState[,] tileState;
         //array of bottons
-        Button[,] tileButtons;
+        public Button[,] tileButtons;
 
         public levelEditor()
         {
@@ -54,38 +54,45 @@ namespace LevelEditor
         //instantiate buttons
         public void CreateLevel(object sender, EventArgs e)
         {
-            //make tile buttons into a 26 by 26 array of buttons
-            tileButtons = new System.Windows.Forms.Button[26, 26];
-            //set levelname to MyLevel
-            
-            //default path is ../../../../TeamTube/TeamTube/Levels/
+            //if the button array is null then create a new array
+            if (tileButtons is null)
+            {
+                //make tile buttons into a 26 by 26 array of buttons
+                tileButtons = new System.Windows.Forms.Button[26, 26];
+
+                //for each of them
+                for (int y = 0; y < 26; y++)
+                {
+                    for (int x = 0; x < 26; x++)
+                    {
+                        //add to the list of drawables
+                        tileButtons[x, y] = new System.Windows.Forms.Button();
+                        //add to form1
+                        this.Controls.Add(tileButtons[x, y]);
+                        //set size
+                        tileButtons[x, y].Size = new Size(25, 25);
+                        //set location
+                        tileButtons[x, y].Location = new Point((30 * x) + 120, (30 * y) + 50);
+
+                        //set the click event to tile button click
+                        tileButtons[x, y].MouseDown += new MouseEventHandler(TileButton_Click);
+
+                        tileButtons[x, y].CreateGraphics();
+                    }
+                }
+            }
             
             //for each of them
             for ( int y = 0; y < 26; y++)
             {
                 for(int x = 0; x < 26; x++)
                 {
-                    //add to the list of drawables
-                    tileButtons[x, y] = new System.Windows.Forms.Button();
-                    //add to form1
-                    this.Controls.Add(tileButtons[x, y]);
-                    //set size
-                    tileButtons[x, y].Size = new Size(25, 25);
-                    //set location
-                    tileButtons[x, y].Location = new Point((30 * x) + 120, (30 * y) + 50);
-                    
                     //set tileState to wall
                     tileState[x, y] = TileState.Wall;
                     //back color to black
                     tileButtons[x, y].BackColor = Color.Black;
                     //set the text to w
                     tileButtons[x, y].Text = "w";
-
-                    //set the click event to tile button click
-                    tileButtons[x, y].MouseDown += new MouseEventHandler(TileButton_Click);
-                    
-
-                    tileButtons[x, y].CreateGraphics();
                 }
             }
         } 
@@ -127,8 +134,12 @@ namespace LevelEditor
         private void ToolStripOpen_Click(object sender, EventArgs e)
         {
             //need to load from a file
-            //create level
-            CreateLevel(sender, e);
+            //if the button array doesn't exist
+            if (tileButtons is null)
+            {
+                //create level
+                CreateLevel(sender, e);
+            }
 
             loadLevelDialouge.ShowDialog();
         }
