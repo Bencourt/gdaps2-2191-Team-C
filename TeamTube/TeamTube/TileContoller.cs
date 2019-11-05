@@ -14,7 +14,7 @@ namespace TeamTube
     class TileController
     {
         //need to load levels from file.io and save them to 2d arrays
-        //2d arrays for tiles on the map
+        //2d arrays store tiles on the map
         public List<TileType[,]> levels;
         
         //set level dimensions in constructor
@@ -102,15 +102,15 @@ namespace TeamTube
 
         public void DrawLevel(SpriteBatch spriteBatch, Texture2D wallTexture, Texture2D floorTexture, Texture2D entranceTexture, Texture2D exitTexture, int levelNumber) 
         {
-            //draw one tile
+            //draw one tile to test fuctionality
             //spriteBatch.Draw(floorTexture, new Rectangle(0, 0, 32, 32), Color.White);
 
             //draw all the tiles
             //y loop
             //use manual values for now
-            for (int y = 0; y < 26; y++)
+            for (int y = 0; y < yLevelDimension; y++)
             {
-                for (int x = 0; x < 26; x++)
+                for (int x = 0; x < xLevelDimension; x++)
                 {
                     //see what each tile is, then print them
                     switch (levels[levelNumber - 1][x, y])

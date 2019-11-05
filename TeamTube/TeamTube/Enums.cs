@@ -15,6 +15,7 @@
         moveSelect,
         itemSelect,
         pauseMenu,
+        WinState,
         gameOver
     }
     enum MenuState//Item state will be put in at a later time
