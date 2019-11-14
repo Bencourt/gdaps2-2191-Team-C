@@ -11,19 +11,24 @@ namespace TeamTube
     {
         public Matrix Transform { get; private set; }
 
+        
+
         public void Follow(Player player)
         {
+            float scale = 3;
             var position = Matrix.CreateTranslation(
-                -player.PlayerRectangle.X - (player.PlayerRectangle.Width / 2), // the positions plus half the width and height
-                -player.PlayerRectangle.Y - (player.PlayerRectangle.Height / 2), // so the center will be the rarget
+                -player.PlayerRectangle.X + (player.PlayerRectangle.Width/2 ), // the positions plus half the width and height
+                -player.PlayerRectangle.Y + (player.PlayerRectangle.Height/2), // so the center will be the rarget
                 0);
 
             var offset = Matrix.CreateTranslation( //multiplies the offset by half the screen size
-                    Game1.screenWidth / 2,
-                    Game1.screenHeight / 2,
+                    Game1.screenWidth /7,
+                    Game1.screenHeight /7,
                     0);
 
-            Transform = position * offset;
+            var scaleTotal = Matrix.CreateScale(new Vector3(scale, scale, scale));
+
+            Transform = (position * offset) * scaleTotal;
         }
     }
 }

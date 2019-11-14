@@ -139,5 +139,27 @@ namespace TeamTube
                 }
             }
         }
+
+        //find entrance method
+        public Point FindEntrance(int levelnumber)
+        {
+            Point entrance = new Point(0, 0);
+            //loop through the tiles until you find an entrance tile
+            for(int y = 0; y < yLevelDimension; y++)
+            {
+                for(int x = 0; x < xLevelDimension; x++)
+                {
+                    //is it an entrance?
+                    if(levels[levelnumber - 1][x,y] == TileType.entrance)
+                    {
+                        entrance = new Point(x, y);
+                    }
+                }
+            }
+            //return entrance
+            return entrance;
+        }
+
+
     }
 }

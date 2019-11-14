@@ -68,7 +68,8 @@ namespace TeamTube
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferHeight = 1000;
+            graphics.PreferredBackBufferHeight = 1200;
+            graphics.PreferredBackBufferWidth = 1600;
         }
 
         /// <summary>
@@ -100,7 +101,7 @@ namespace TeamTube
             potionVector = new Vector2(20, 50);
             selectionRect = new Rectangle(20, 30, 200, 70);
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
-            screenWidth = graphics.GraphicsDevice.Viewport.Height;
+            screenWidth = graphics.GraphicsDevice.Viewport.Width;
             camera = new Camera();
             //menu controller
             menuController = new MenuController();
@@ -400,6 +401,8 @@ namespace TeamTube
             player.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
 
+            
+            /*
             if (gState == GameState.moveSelect || gState == GameState.itemSelect)
             {
                 spriteBatch.Draw(selectionBGTxt, selectionRect, Color.White);
@@ -473,6 +476,7 @@ namespace TeamTube
                 }
             }
             //end
+            */
             spriteBatch.End();
 
             base.Draw(gameTime);
