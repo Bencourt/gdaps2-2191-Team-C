@@ -69,17 +69,21 @@ namespace TeamTube
                 {
                     //recursively check corners
                     if (CheckTarget(targetX, 0) && CheckTarget(0, targetY))
+                        //valid move space
                         return true;
                     else
+                        //invalid move space
                         return false;
                 }
                 else
                 {
+                    //valid move space
                     return true;
                 }
             }
             else
             {
+                //invalid moves space
                 return false;
             }
         }
@@ -132,55 +136,7 @@ namespace TeamTube
 
         public override void MakeDecision(KeyboardState keyboardState)
         {
-            /*
-            if (!moving)
-            {
-                if (keyboardState.IsKeyDown(Keys.Up))
-                {
-                    if (CheckTarget(0, -1))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 0, -1);
-                        Turn = false;
-                        yTarget += 32;
-                        characterController.Input = true;
-                    }
-                }
-                if (keyboardState.IsKeyDown(Keys.Down))
-                {
-                    if (CheckTarget(0, 1))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 0, 1);
-                        yTarget -= 32;
-                        Turn = false;
-                        characterController.Input = true;
-                    }
-                }
-                if (keyboardState.IsKeyDown(Keys.Left))
-                {
-                    if (CheckTarget(-1, 0))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, -1, 0);
-                        xTarget -= 32;
-                        Turn = false;
-                        characterController.Input = true;
-                    }
-                }
-                if (keyboardState.IsKeyDown(Keys.Right))
-                {
-                    if (CheckTarget(1, 0))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 1, 0);
-                        xTarget += 32;
-                        Turn = false;
-                        characterController.Input = true;
-                    }
-                }
-            }
-            */
+            //if the player isn't moving
             if (!moving)
             {
                 int inputY = 0;
