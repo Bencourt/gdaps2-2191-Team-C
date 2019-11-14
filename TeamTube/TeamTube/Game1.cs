@@ -39,6 +39,9 @@ namespace TeamTube
         //we need a tile Controller
         TileController tileController;
 
+        //menucontroller
+        MenuController menuController;
+
         //Enum items
         GameState gState;
         MenuState mState;
@@ -99,6 +102,8 @@ namespace TeamTube
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
             screenWidth = graphics.GraphicsDevice.Viewport.Height;
             camera = new Camera();
+            //menu controller
+            menuController = new MenuController();
             base.Initialize();
 
         }
@@ -162,9 +167,9 @@ namespace TeamTube
             previousKbState = kbState;
             kbState = Keyboard.GetState();
 
-
+            //this menu logic is commented out
             #region menu logic
-
+            /*
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (gState == GameState.mainMenu)
@@ -362,7 +367,7 @@ namespace TeamTube
             }
 
             // TODO: Add your update logic here
-            
+            */
             #endregion
 
             
@@ -371,8 +376,12 @@ namespace TeamTube
                 player.Update(kbState);
                 enemy.Update(kbState);
                 camera.Follow(player);
-            }           
+            }
             //characterController.TakeTurns(kbState);
+
+            //update gamestate using menu controller
+            gState = menuController.GameStateUpdate(kbState, previousKbState, gState);
+
             base.Update(gameTime);
         }
 

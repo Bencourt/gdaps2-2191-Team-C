@@ -102,7 +102,6 @@ namespace TeamTube
                     break;
             }
         }
-        //MainMenuDraw
         //single key press
         public bool SingleKeyPress(Keys key)
         {
