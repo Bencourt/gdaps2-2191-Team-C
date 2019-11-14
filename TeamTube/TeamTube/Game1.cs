@@ -132,10 +132,15 @@ namespace TeamTube
             //instantiate Tile Controller
             tileController = new TileController(26,26);
             //create first level with filepath 
-            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\LevelExample.txt");
+            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\Oomph.txt");
+            //player rectangle is set to the find rectangle point
+            Point entrance = tileController.FindEntrance(1);
+            playerRectangle.Location = new Point(entrance.X * 32, entrance.Y * 32);
+
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
             enemy = new Enemy(characterController, tileController, 10, enemyRectangle, enemyTexture, player);
+            
         }
 
         /// <summary>
