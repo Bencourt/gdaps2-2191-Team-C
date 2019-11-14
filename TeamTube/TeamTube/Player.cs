@@ -12,13 +12,19 @@ namespace TeamTube
     class Player : Character, iMovable
     {
         //fields
+        //player rectangle and texture
         Texture2D playerTexture;
         Rectangle playerRectangle;
+        //is the player moving
         bool moving;
+        //the room position to move to
         int xTarget;
         int yTarget;
+        //character controller
         CharacterController characterController;
+        //tile controller
         TileController tiles;
+        //the speed at which the character moves
         int speed = 2;
 
         //player rectangle property
@@ -126,6 +132,7 @@ namespace TeamTube
 
         public override void MakeDecision(KeyboardState keyboardState)
         {
+            /*
             if (!moving)
             {
                 if (keyboardState.IsKeyDown(Keys.Up))
@@ -136,7 +143,6 @@ namespace TeamTube
                         characterController.MoveCharacter(this, 0, -1);
                         Turn = false;
                         yTarget += 32;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                         characterController.Input = true;
                     }
                 }
@@ -148,7 +154,6 @@ namespace TeamTube
                         characterController.MoveCharacter(this, 0, 1);
                         yTarget -= 32;
                         Turn = false;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                         characterController.Input = true;
                     }
                 }
@@ -160,7 +165,6 @@ namespace TeamTube
                         characterController.MoveCharacter(this, -1, 0);
                         xTarget -= 32;
                         Turn = false;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                         characterController.Input = true;
                     }
                 }
@@ -172,9 +176,49 @@ namespace TeamTube
                         characterController.MoveCharacter(this, 1, 0);
                         xTarget += 32;
                         Turn = false;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
                         characterController.Input = true;
                     }
+                }
+            }
+            */
+            if (!moving)
+            {
+                int inputY = 0;
+                int inputX = 0;
+
+                if (keyboardState.IsKeyDown(Keys.Up))
+                {
+                    inputY = -1;
+                }
+                else if (keyboardState.IsKeyDown(Keys.Down))
+                {
+                    inputY = 1;
+                }
+                else
+                {
+                    inputY = 0;
+                }
+                if (keyboardState.IsKeyDown(Keys.Left))
+                {
+                    inputX = -1;
+                }
+                else if (keyboardState.IsKeyDown(Keys.Right))
+                {
+                    inputX = 1;
+                }
+                else
+                {
+                    inputX = 0;
+                }
+
+                if(CheckTarget(inputX,inputY))
+                {
+                    moving = true;
+                    characterController.MoveCharacter(this, inputX, inputY);
+                    xTarget = 32 * inputX;
+                    yTarget = 32 * -inputY;
+                    Turn = false;
+                    characterController.Input = true;
                 }
             }
         }
