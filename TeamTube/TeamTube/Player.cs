@@ -11,6 +11,7 @@ namespace TeamTube
 {
     class Player : Character, iMovable
     {
+        //fields
         Texture2D playerTexture;
         Rectangle playerRectangle;
         bool moving;
@@ -18,33 +19,58 @@ namespace TeamTube
         int yTarget;
         CharacterController characterController;
         TileController tiles;
+        int speed = 2;
 
+        //player rectangle property
         public Rectangle PlayerRectangle
         {
             get { return playerRectangle; }
         }
 
+        //player constructor makes a player in the character and tile controllers
         public Player(CharacterController characterController, TileController tiles, int health, Rectangle playerRectangle, Texture2D playerTexture)
         {
+            //move targets set to 0
             xTarget = 0;
             yTarget = 0;
+            //Health set
             this.Health = health;
+            //player is not moving
             moving = false;
+            //set the character controller and tile controller
             this.characterController = characterController;
             this.tiles = tiles;
+            //set the rectangle and texture
             this.playerRectangle = playerRectangle;
             this.playerTexture = playerTexture;
+            //add the player to the character controller
             characterController.Add(this, playerRectangle.X/32, playerRectangle.Y/32);
+            //set the input to be false;
+            characterController.Input = false;
         }
 
+        //check target method checks the tiles around the character to determine if a move is valid or not
         public override bool CheckTarget(int targetX, int targetY)
         {
+            //get the array position of the character
             int x = characterController.FindCharacter(this).X;
             int y = characterController.FindCharacter(this).Y;
 
+            //if the tiles in the target position of the character is not a wall or character
             if (tiles.levels[0][x + targetX, y + targetY] != TileType.Wall && characterController.Characters[x + targetX, y + targetY] == null)
             {
-                return true;
+                if ((targetX == 1 || targetX == -1) && (targetY == 1 || targetY == -1))
+                {
+                    //recursively check corners
+                    if (CheckTarget(targetX, 0) && CheckTarget(0, targetY))
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
@@ -52,47 +78,50 @@ namespace TeamTube
             }
         }
 
+        //update method
         public override void Update(KeyboardState keyboardState)
         {
-            Turn = true;
+            //make decision regarding movement
             MakeDecision(keyboardState);
             if (moving)
             {
-                if(xTarget > 0)
+                if (xTarget > 0)
                 {
-                    playerRectangle.X++;
-                    xTarget--;
+                    playerRectangle.X += speed;
+                    xTarget -= speed;
                 }
-                else if(xTarget < 0)
+                else if (xTarget < 0)
                 {
-                    playerRectangle.X--;
-                    xTarget++;
-                }
-                else
-                {
-                    //dont move
-                }
-
-                if(yTarget > 0)
-                {
-                    playerRectangle.Y--;
-                    yTarget--;
-                }
-                else if(yTarget < 0)
-                {
-                    playerRectangle.Y++;
-                    yTarget++;
+                    playerRectangle.X -= speed;
+                    xTarget += speed;
                 }
                 else
                 {
                     //dont move
                 }
 
-                if(xTarget == 0 && yTarget == 0)
+                if (yTarget > 0)
+                {
+                    playerRectangle.Y -= speed;
+                    yTarget -= speed;
+                }
+                else if (yTarget < 0)
+                {
+                    playerRectangle.Y += speed;
+                    yTarget += speed;
+                }
+                else
+                {
+                    //dont move
+                }
+
+                if (xTarget == 0 && yTarget == 0)
                 {
                     moving = false;
+                    characterController.Input = false;
                 }
             }
+        
         }
 
         public override void MakeDecision(KeyboardState keyboardState)
@@ -108,6 +137,7 @@ namespace TeamTube
                         Turn = false;
                         yTarget += 32;
                         //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        characterController.Input = true;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Down))
@@ -119,6 +149,7 @@ namespace TeamTube
                         yTarget -= 32;
                         Turn = false;
                         //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        characterController.Input = true;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Left))
@@ -130,6 +161,7 @@ namespace TeamTube
                         xTarget -= 32;
                         Turn = false;
                         //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        characterController.Input = true;
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Right))
@@ -141,6 +173,7 @@ namespace TeamTube
                         xTarget += 32;
                         Turn = false;
                         //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
+                        characterController.Input = true;
                     }
                 }
             }

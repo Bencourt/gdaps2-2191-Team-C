@@ -29,9 +29,11 @@ namespace TeamTube
         //temp player texture
         Texture2D playerTexture;
         Rectangle playerRectangle;
+        Rectangle enemyRectangle;
 
         CharacterController characterController;
         Player player;
+        Enemy enemy;
 
         //we need a tile Controller
         TileController tileController;
@@ -85,6 +87,7 @@ namespace TeamTube
             bombActive = false;
             potionActive = false;
             playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
+            enemyRectangle = new Rectangle(new Point(32*5, 32*5), new Point(32, 32));
             exitVector = new Vector2(20, 70);
             itemVector = new Vector2(20, 60);
             attackVector = new Vector2(20, 50);
@@ -122,9 +125,10 @@ namespace TeamTube
             //instantiate Tile Controller
             tileController = new TileController(26,26);
             //create first level with filepath 
-            tileController.CreateLevel1("Levels\\LevelExample.txt");
+            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\LevelExample.txt");
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
+            enemy = new Enemy(characterController, tileController, 10, enemyRectangle, playerTexture, player);
         }
 
         /// <summary>
@@ -376,13 +380,15 @@ namespace TeamTube
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             //begin
             spriteBatch.Begin(transformMatrix: camera.Transform);
 
             tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
             player.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
+
             if (gState == GameState.moveSelect || gState == GameState.itemSelect)
             {
                 spriteBatch.Draw(selectionBGTxt, selectionRect, Color.White);

@@ -12,7 +12,14 @@ namespace TeamTube
     {
         private Character[,] characters;
         private Point nullPoint = new Point(-1,-1);
-        LinkedList<Character> allCharacters;
+        List<Character> allCharacters;
+        private bool input;
+
+        public bool Input
+        {
+            get { return input; }
+            set { input = value; }
+        }
 
         public Character[,] Characters
         {
@@ -20,7 +27,7 @@ namespace TeamTube
             set { characters = value; }
         }
 
-        public LinkedList<Character> AllCharacters
+        public List<Character> AllCharacters
         {
             get { return allCharacters; }
             set { allCharacters = value; }
@@ -78,18 +85,14 @@ namespace TeamTube
             }
         }
 
-        private LinkedList<Character> getCharacters()
+        private List<Character> getCharacters()
         {
             allCharacters.Clear();
             foreach (Character c in characters)
             {
-                allCharacters.AddLast(c);
+                allCharacters.Add(c);
             }
             return allCharacters;
         }
-
-
-
-
     }
 }
