@@ -29,6 +29,7 @@ namespace TeamTube
         //temp player texture
         Texture2D playerTexture;
         Rectangle playerRectangle;
+        Texture2D enemyTexture;
         Rectangle enemyRectangle;
 
         CharacterController characterController;
@@ -121,14 +122,14 @@ namespace TeamTube
             selectionBGTxt=Content.Load<Texture2D>("SelectionBG");
             //load temp player texture
             playerTexture = Content.Load<Texture2D>("player");
-
+            enemyTexture = Content.Load<Texture2D>("slime_idle");
             //instantiate Tile Controller
             tileController = new TileController(26,26);
             //create first level with filepath 
             tileController.CreateLevel1("..\\..\\..\\..\\Levels\\LevelExample.txt");
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
-            enemy = new Enemy(characterController, tileController, 10, enemyRectangle, playerTexture, player);
+            enemy = new Enemy(characterController, tileController, 10, enemyRectangle, enemyTexture, player);
         }
 
         /// <summary>
@@ -368,6 +369,7 @@ namespace TeamTube
             if (gState == GameState.gamePlay)
             {
                 player.Update(kbState);
+                enemy.Update(kbState);
                 camera.Follow(player);
             }           
             //characterController.TakeTurns(kbState);
