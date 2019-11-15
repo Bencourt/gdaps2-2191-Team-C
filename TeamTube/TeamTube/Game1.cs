@@ -25,6 +25,8 @@ namespace TeamTube
         Texture2D entranceTexture;
         Texture2D exitTexture;
 
+        //basic font
+        SpriteFont font;
 
         //temp player texture
         Texture2D playerTexture;
@@ -38,9 +40,12 @@ namespace TeamTube
 
         //we need a tile Controller
         TileController tileController;
+        //entrance and exit tiles
+        Point entrance1;
+        Point exit1;
 
-        //menucontroller
-        MenuController menuController;
+        //GameStatecontroller
+        GameStateController menuController;
 
         //Enum items
         GameState gState;
@@ -103,8 +108,8 @@ namespace TeamTube
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
             camera = new Camera();
-            //menu controller
-            menuController = new MenuController();
+            //GameState controller
+            menuController = new GameStateController();
             base.Initialize();
 
         }
@@ -123,6 +128,8 @@ namespace TeamTube
             floorTexture = Content.Load<Texture2D>("Ground_tile");
             entranceTexture = Content.Load<Texture2D>("Entrance_tile");
             exitTexture = Content.Load<Texture2D>("exit");
+            //load spritefont
+            font = Content.Load<SpriteFont>("font");
             //Move select textures
             selectionText = Content.Load<SpriteFont>("AttackFont");
             selectionBGTxt=Content.Load<Texture2D>("SelectionBG");
@@ -134,8 +141,9 @@ namespace TeamTube
             //create first level with filepath 
             tileController.CreateLevel1("..\\..\\..\\..\\Levels\\Oomph.txt");
             //player rectangle is set to the find rectangle point
-            Point entrance = tileController.FindEntrance(1);
-            playerRectangle.Location = new Point(entrance.X * 32, entrance.Y * 32);
+            entrance1 = tileController.FindEntrance(1);
+            exit1 = tileController.FindExit(1);
+            playerRectangle.Location = new Point(entrance1.X * 32, entrance1.Y * 32);
 
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
@@ -376,17 +384,37 @@ namespace TeamTube
             */
             #endregion
 
-            
-            if (gState == GameState.gamePlay)
+            switch (gState)
             {
-                player.Update(kbState);
-                enemy.Update(kbState);
-                camera.Follow(player);
+                case GameState.gamePlay:
+
+                    //gamestate logic
+                    player.Update(kbState);
+                    enemy.Update(kbState);
+                    camera.Follow(player);
+
+                    break;
+                case GameState.mainMenu:
+                    //menu state logic
+
+                    break;
+                case GameState.pauseMenu:
+                    //pause menu logic
+
+                    break;
+                case GameState.gameOver:
+                    //game over logic
+
+                    break;
+                case GameState.winState:
+                    //winstate logic
+
+                    break;
             }
             //characterController.TakeTurns(kbState);
 
             //update gamestate using menu controller
-            gState = menuController.GameStateUpdate(kbState, previousKbState, gState);
+            gState = menuController.GameStateUpdate(kbState, previousKbState, gState, player, exit1);
 
             base.Update(gameTime);
         }
@@ -400,13 +428,18 @@ namespace TeamTube
             GraphicsDevice.Clear(Color.Black);
 
             //begin
-            spriteBatch.Begin(transformMatrix: camera.Transform);
+            if (gState == GameState.gamePlay)//only transform stuff if in the gamestate
+            {
+                spriteBatch.Begin(transformMatrix: camera.Transform);
+            }
+            //if not in gamestate, do not transform
+            else
+            {
+                spriteBatch.Begin();
+            }
 
-            tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
-            player.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
-
-            
+            //commented out draw logic
+            #region draw logic
             /*
             if (gState == GameState.moveSelect || gState == GameState.itemSelect)
             {
@@ -482,6 +515,26 @@ namespace TeamTube
             }
             //end
             */
+            #endregion
+            //draw state logic
+            switch (gState)
+            {
+                case GameState.gamePlay:
+                    //gameplay draw logic
+                    tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
+                    player.Draw(spriteBatch);
+                    enemy.Draw(spriteBatch);
+                    break;
+                case GameState.mainMenu:
+                    spriteBatch.DrawString()
+                    break;
+                case GameState.pauseMenu:
+                    break;
+                case GameState.winState:
+                    break;
+                case GameState.gameOver:
+                    break;
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);

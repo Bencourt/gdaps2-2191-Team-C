@@ -9,13 +9,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TeamTube
 {
-    class MenuController
+    class GameStateController
     {
         KeyboardState currentKbState;
         KeyboardState previousKbState;
         ///Architecture
         ///Main menu-press space or return to play
-        public GameState GameStateUpdate(KeyboardState kbState, KeyboardState prevKbState, GameState current)//To be put in the update method in Game1 for the menu fsm
+        public GameState GameStateUpdate(KeyboardState kbState, KeyboardState prevKbState, GameState current, Player player, Point Exit)//To be put in the update method in Game1 for the menu fsm
         {
             //handles all the transition logic for menu states
             currentKbState = kbState;
@@ -41,9 +41,15 @@ namespace TeamTube
                         return GameState.pauseMenu;
                     }
                     //if player dies, return gameOver
-                    //if(player.isdead)
+                    if (player.Health <= 0)
+                    {
+                        return GameState.gameOver;
+                    }
                     //if exit is reached, return WinState
-                    //if(playerlocation = exit)
+                    if(player.PlayerRectangle.Location == Exit)
+                    {
+                        return GameState.winState;
+                    }
                     //otherwise return gameplay
                     else
                     {

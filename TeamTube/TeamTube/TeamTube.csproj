@@ -49,7 +49,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="iDamageable.cs" />
     <Compile Include="iMovable.cs" />
-    <Compile Include="MenuController.cs" />
+    <Compile Include="GameStateController.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
