@@ -10,6 +10,14 @@ This is the file containing concept art, interface mockups, and style informatio
 ![mood board](mood board.JPG)
 ![style guide highlights](highlights.JPG)
 ![style guide dark base tones](Dark base tones.png)
+![big health potion](gdaps2/BigHealthPotion.png.png)
+![Entrance tile](gdaps2/Entrance_tile.png)
+![ground tile](gdaps2/Ground_tile.png)
+![health potion](gdaps2/HealthPotion.png.png)
+![wall tile](gdaps2/Wall_tile.png)
+![light mask](gdaps2/lightmask.png)
+![slime attack](gdaps2/slime_attack.png)
+![slime idle](gdaps2/slime_idle.png)
 
 ## Game Mode <A>
 
