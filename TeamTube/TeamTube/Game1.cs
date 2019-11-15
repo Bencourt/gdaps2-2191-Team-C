@@ -453,16 +453,11 @@ namespace TeamTube
             //begin
             GraphicsDevice.SetRenderTarget(mainTarget);
             GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, transformMatrix: camera.Transform);
-
-            tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
-            player.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
-
+            
             
             if (gState == GameState.gamePlay)//only transform stuff if in the gamestate
             {
-                spriteBatch.Begin(transformMatrix: camera.Transform);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, transformMatrix: camera.Transform);
             }
             //if not in gamestate, do not transform
             else
@@ -558,7 +553,8 @@ namespace TeamTube
                     enemy.Draw(spriteBatch);
                     break;
                 case GameState.mainMenu:
-                    spriteBatch.DrawString()
+                    //draw a prompt
+                    spriteBatch.DrawString(font, "Press enter to start", Vector2.Zero, Color.White);
                     break;
                 case GameState.pauseMenu:
                     break;
