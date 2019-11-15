@@ -39,6 +39,9 @@ namespace TeamTube
         //we need a tile Controller
         TileController tileController;
 
+        //menucontroller
+        MenuController menuController;
+
         //Enum items
         GameState gState;
         MenuState mState;
@@ -72,7 +75,8 @@ namespace TeamTube
             graphics = new GraphicsDeviceManager(this);
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferHeight = 1000;
+            graphics.PreferredBackBufferHeight = 1200;
+            graphics.PreferredBackBufferWidth = 1600;
         }
 
         /// <summary>
@@ -104,8 +108,10 @@ namespace TeamTube
             potionVector = new Vector2(20, 50);
             selectionRect = new Rectangle(20, 30, 200, 70);
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
-            screenWidth = graphics.GraphicsDevice.Viewport.Height;
+            screenWidth = graphics.GraphicsDevice.Viewport.Width;
             camera = new Camera();
+            //menu controller
+            menuController = new MenuController();
             base.Initialize();
 
         }
@@ -133,7 +139,11 @@ namespace TeamTube
             //instantiate Tile Controller
             tileController = new TileController(26,26);
             //create first level with filepath 
-            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\BestLevel.txt");
+            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\Oomph.txt");
+            //player rectangle is set to the find rectangle point
+            Point entrance = tileController.FindEntrance(1);
+            playerRectangle.Location = new Point(entrance.X * 32, entrance.Y * 32);
+
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
             enemy = new Enemy(characterController, tileController, 10, enemyRectangle, enemyTexture, player);
@@ -176,9 +186,9 @@ namespace TeamTube
             previousKbState = kbState;
             kbState = Keyboard.GetState();
 
-
+            //this menu logic is commented out
             #region menu logic
-
+            /*
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (gState == GameState.mainMenu)
@@ -376,7 +386,7 @@ namespace TeamTube
             }
 
             // TODO: Add your update logic here
-            
+            */
             #endregion
 
             
@@ -385,8 +395,12 @@ namespace TeamTube
                 player.Update(kbState);
                 enemy.Update(kbState);
                 camera.Follow(player);
-            }           
+            }
             //characterController.TakeTurns(kbState);
+
+            //update gamestate using menu controller
+            gState = menuController.GameStateUpdate(kbState, previousKbState, gState);
+
             base.Update(gameTime);
         }
 
@@ -417,6 +431,8 @@ namespace TeamTube
             player.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
 
+            
+            /*
             if (gState == GameState.moveSelect || gState == GameState.itemSelect)
             {
                 spriteBatch.Draw(selectionBGTxt, selectionRect, Color.White);
@@ -490,6 +506,7 @@ namespace TeamTube
                 }
             }
             //end
+            */
             spriteBatch.End();
 
             //splicing lights onto game
