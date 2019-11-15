@@ -60,10 +60,17 @@ namespace TeamTube
         Texture2D selectionBGTxt;
         SpriteFont selectionText;
 
+        //shader time
+        public static Texture2D lightMask;
+        public static Effect effect1;
+        RenderTarget2D lightsTarget;
+        RenderTarget2D mainTarget;
+
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferHeight = 1000;
         }
@@ -126,10 +133,17 @@ namespace TeamTube
             //instantiate Tile Controller
             tileController = new TileController(26,26);
             //create first level with filepath 
-            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\LevelExample.txt");
+            tileController.CreateLevel1("..\\..\\..\\..\\Levels\\BestLevel.txt");
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
             enemy = new Enemy(characterController, tileController, 10, enemyRectangle, enemyTexture, player);
+
+            //loading shader stuff
+            effect1 = Content.Load<Effect>("lighteffect");
+            lightMask = Content.Load<Texture2D>("lightmask");
+            var pp = GraphicsDevice.PresentationParameters;
+            lightsTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
+            mainTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
         }
 
         /// <summary>
@@ -376,16 +390,28 @@ namespace TeamTube
             base.Update(gameTime);
         }
 
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //shader drawing stuff
+            GraphicsDevice.SetRenderTarget(lightsTarget);
             GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+            //draw light mask where there should be torches etc...
+            spriteBatch.Draw(lightMask, new Vector2(player.PlayerRectangle.X, player.PlayerRectangle.Y), Color.White);
+            //spriteBatch.Draw(lightMask, new Vector2(X, Y), Color.White);
+
+            spriteBatch.End();
+
 
             //begin
-            spriteBatch.Begin(transformMatrix: camera.Transform);
+            GraphicsDevice.SetRenderTarget(mainTarget);
+            GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, transformMatrix: camera.Transform);
 
             tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
             player.Draw(spriteBatch);
@@ -464,6 +490,15 @@ namespace TeamTube
                 }
             }
             //end
+            spriteBatch.End();
+
+            //splicing lights onto game
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            effect1.Parameters["lightMask"].SetValue(lightsTarget);
+            //effect1.CurrentTechnique.Passes[effect1.CurrentTechnique.Passes.Count-1].Apply();
+            spriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
