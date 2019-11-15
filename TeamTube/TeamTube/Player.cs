@@ -26,11 +26,19 @@ namespace TeamTube
         TileController tiles;
         //the speed at which the character moves
         int speed = 2;
+        //items 
+        int itemsHeld = 0;
 
         //player rectangle property
         public Rectangle PlayerRectangle
         {
             get { return playerRectangle; }
+        }
+
+        public int ItemsHeld
+        {
+            get { return itemsHeld; }
+            set { itemsHeld = value; }
         }
 
         //player constructor makes a player in the character and tile controllers

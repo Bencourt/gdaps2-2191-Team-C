@@ -86,6 +86,18 @@
 /processorParam:TextureFormat=Color
 /build:Ground_tile.png
 
+#begin HealthPotion.png.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HealthPotion.png.png
+
 #begin lightmask.png
 /importer:TextureImporter
 /processor:TextureProcessor

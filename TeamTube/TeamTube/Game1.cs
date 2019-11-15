@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TeamTube
 {
@@ -15,6 +20,17 @@ namespace TeamTube
 
         //Camera
         Camera camera;
+
+        //item textures and rectangles
+        Texture2D hpPotTexture;
+        Rectangle potOneRect;
+        Rectangle potTwoRect;
+        Rectangle potThreeRect;
+        HealthPotion potOne;
+        HealthPotion potTwo;
+        HealthPotion potThree;
+        List<Item> items = new List<Item>();
+        Vector2 potions;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -55,8 +71,7 @@ namespace TeamTube
         KeyboardState previousKbState;
 
         //check if items have been picked up
-        bool bombActive;
-        bool potionActive;
+       
         //Attack selection
         Vector2 exitVector;
         Vector2 attackVector;
@@ -101,16 +116,20 @@ namespace TeamTube
             iState = new ItemState();
             kbState = Keyboard.GetState();
             previousKbState = Keyboard.GetState();
-            bombActive = false;
-            potionActive = false;
+           // bombActive = false;
+          //  potionActive = false;
             playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
             enemyRectangle = new Rectangle(new Point(32*5, 32*5), new Point(32, 32));
+            potOneRect = new Rectangle(new Point(128, 128), new Point(16, 16));
+            potTwoRect = new Rectangle(new Point(160, 488), new Point(16, 16));
+            potThreeRect = new Rectangle(new Point(520, 128), new Point(16, 16));
             exitVector = new Vector2(20, 70);
             itemVector = new Vector2(20, 60);
             attackVector = new Vector2(20, 50);
             strongVector = new Vector2(20, 40);
             bombVector = new Vector2(20, 40);
             potionVector = new Vector2(20, 50);
+            potions = new Vector2(screenWidth - 50, 25);
             selectionRect = new Rectangle(20, 30, 200, 70);
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
@@ -138,11 +157,13 @@ namespace TeamTube
             //load spritefont
             font = Content.Load<SpriteFont>("font");
             //Move select textures
-            selectionText = Content.Load<SpriteFont>("AttackFont");
+            //selectionText = Content.Load<SpriteFont>("AttackFont");
             selectionBGTxt=Content.Load<Texture2D>("SelectionBG");
             //load temp player texture
             playerTexture = Content.Load<Texture2D>("player");
             enemyTexture = Content.Load<Texture2D>("slime_idle");
+            //item textures
+            hpPotTexture = Content.Load<Texture2D>("HealthPotion.png");
             //instantiate Tile Controller
             tileController = new TileController(26,26);
             //create first level with filepath 
@@ -155,6 +176,13 @@ namespace TeamTube
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
             enemy = new Enemy(characterController, tileController, 10, enemyRectangle, enemyTexture, player);
+
+            potOne = new HealthPotion(10, potOneRect, hpPotTexture);
+            potTwo = new HealthPotion(10, potTwoRect, hpPotTexture);
+            potThree = new HealthPotion(10, potThreeRect, hpPotTexture);
+            items.Add(potOne);
+            items.Add(potTwo);
+            items.Add(potThree);
 
             //loading shader stuff
             effect1 = Content.Load<Effect>("lighteffect");
@@ -404,6 +432,10 @@ namespace TeamTube
                     //gamestate logic
                     player.Update(kbState);
                     enemy.Update(kbState);
+                    foreach(Item item in items)
+                    {
+                        item.Update(player);
+                    }
                     camera.Follow(player);
 
                     break;
@@ -551,6 +583,11 @@ namespace TeamTube
                     tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
                     player.Draw(spriteBatch);
                     enemy.Draw(spriteBatch);
+                    foreach(Item item in items)
+                    {
+                        item.Draw(spriteBatch);
+                    }
+                    spriteBatch.DrawString(font, "Potions: " + player.ItemsHeld, potions, Color.White);
                     break;
                 case GameState.mainMenu:
                     //draw a prompt
