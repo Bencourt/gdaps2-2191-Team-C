@@ -123,7 +123,9 @@ namespace TeamTube
         //death method
         public override void Death()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            characterController.Remove(this);
+
         }
 
         //draw method draws the enemy

@@ -41,6 +41,10 @@ namespace TeamTube
         {
             health -= damage;
             damageTaken += damage;
+            if(health <= 0)
+            {
+                Death();
+            }
         }
 
         //abstract makeDecision method

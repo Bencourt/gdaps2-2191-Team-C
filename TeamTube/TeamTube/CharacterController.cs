@@ -17,7 +17,7 @@ namespace TeamTube
         //null point is a reference point to test methods
         private Point nullPoint = new Point(-1,-1);
         //allCharacters list is a list of the characters currently in the level
-        List<Character> allCharacters;
+        List<Character> allCharacters= new List<Character>();
         //input determines if the player has put in input
         private bool input;
 
@@ -38,7 +38,7 @@ namespace TeamTube
         //Allcharacers list property
         public List<Character> AllCharacters
         {
-            get { return allCharacters; }
+            get { return getCharacters(); }
             set { allCharacters = value; }
         }
 
@@ -91,6 +91,12 @@ namespace TeamTube
             characters[x, y] = c;
         }
 
+        public void Remove(Character c)
+        {
+            Point myIndex = FindCharacter(c);
+            Characters[myIndex.X, myIndex.Y] = null;
+        }
+
         /*
          * 
          * The take turns method was supposed to control which character should be making decisions and looping through the characters 
@@ -118,7 +124,8 @@ namespace TeamTube
         private List<Character> getCharacters()
         {
             //clear the current allCharacters list
-            allCharacters.Clear();
+            if(allCharacters != null)
+                allCharacters.Clear();
             //loop through the 2d array
             foreach (Character c in characters)
             {

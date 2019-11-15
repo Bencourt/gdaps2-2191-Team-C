@@ -28,6 +28,8 @@ namespace TeamTube
         int speed = 2;
         //items 
         int itemsHeld = 0;
+        //attack damage;
+        int weakAttack = 1;
 
         //player rectangle property
         public Rectangle PlayerRectangle
@@ -147,42 +149,62 @@ namespace TeamTube
             //if the player isn't moving
             if (!moving)
             {
-                int inputY = 0;
-                int inputX = 0;
+                if (characterController.Input == false)
+                {
+                    if (keyboardState.IsKeyDown(Keys.L))
+                    {
+                        characterController.Input = true;
+                        foreach (Character c in characterController.AllCharacters)
+                        {
+                            Point enemyPosition = characterController.FindCharacter(c);
+                            Point playerPosition = characterController.FindCharacter(this);
 
-                if (keyboardState.IsKeyDown(Keys.Up))
-                {
-                    inputY = -1;
+                            if (((enemyPosition.X - playerPosition.X <= 1) && (enemyPosition.X - playerPosition.X >= -1)) && ((enemyPosition.Y - playerPosition.Y <= 1) && (enemyPosition.Y - playerPosition.Y >= -1)))
+                            {
+                                c.TakeDamage(weakAttack);
+                            }
+                        }
+                    }
                 }
-                else if (keyboardState.IsKeyDown(Keys.Down))
+                if(characterController.Input == false)
                 {
-                    inputY = 1;
-                }
-                else
-                {
-                    inputY = 0;
-                }
-                if (keyboardState.IsKeyDown(Keys.Left))
-                {
-                    inputX = -1;
-                }
-                else if (keyboardState.IsKeyDown(Keys.Right))
-                {
-                    inputX = 1;
-                }
-                else
-                {
-                    inputX = 0;
-                }
+                    int inputY = 0;
+                    int inputX = 0;
 
-                if(CheckTarget(inputX,inputY))
-                {
-                    moving = true;
-                    characterController.MoveCharacter(this, inputX, inputY);
-                    xTarget = 32 * inputX;
-                    yTarget = 32 * -inputY;
-                    Turn = false;
-                    characterController.Input = true;
+                    if (keyboardState.IsKeyDown(Keys.Up))
+                    {
+                        inputY = -1;
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.Down))
+                    {
+                        inputY = 1;
+                    }
+                    else
+                    {
+                        inputY = 0;
+                    }
+                    if (keyboardState.IsKeyDown(Keys.Left))
+                    {
+                        inputX = -1;
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.Right))
+                    {
+                        inputX = 1;
+                    }
+                    else
+                    {
+                        inputX = 0;
+                    }
+
+                    if (CheckTarget(inputX, inputY))
+                    {
+                        moving = true;
+                        characterController.MoveCharacter(this, inputX, inputY);
+                        xTarget = 32 * inputX;
+                        yTarget = 32 * -inputY;
+                        Turn = false;
+                        characterController.Input = true;
+                    }
                 }
             }
         }
