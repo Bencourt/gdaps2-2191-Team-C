@@ -113,6 +113,7 @@
     <None Include="Content\bin\Windows\slime_idle.xnb" />
     <None Include="Content\bin\Windows\Wall.xnb" />
     <None Include="Content\bin\Windows\Wall_tile.xnb" />
+    <None Include="Content\File.spritefont" />
     <None Include="Content\obj\Windows\.mgcontent" />
     <None Include="Content\obj\Windows\.mgstats" />
     <None Include="Content\obj\Windows\Content\.mgcontent" />

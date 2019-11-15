@@ -129,7 +129,7 @@ namespace TeamTube
             strongVector = new Vector2(20, 40);
             bombVector = new Vector2(20, 40);
             potionVector = new Vector2(20, 50);
-            potions = new Vector2(screenWidth - 50, 25);
+            potions = new Vector2(screenWidth/2, screenHeight/2);
             selectionRect = new Rectangle(20, 30, 200, 70);
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
@@ -155,7 +155,7 @@ namespace TeamTube
             entranceTexture = Content.Load<Texture2D>("Entrance_tile");
             exitTexture = Content.Load<Texture2D>("exit");
             //load spritefont
-            font = Content.Load<SpriteFont>("font");
+            font = Content.Load<SpriteFont>("File");
             //Move select textures
             //selectionText = Content.Load<SpriteFont>("AttackFont");
             selectionBGTxt=Content.Load<Texture2D>("SelectionBG");
