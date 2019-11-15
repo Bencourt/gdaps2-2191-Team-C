@@ -17,10 +17,13 @@ NPC’s:
     one enemy type
 Items: 
     one healing item 
+        Protoype potion is implemented 
     one damaging item
+        Bomb will soon be in the game
 Graphics: 
     Single image sprites, no animations
     camera follows the player
+        Camera follows the player and scales the view
 Text: 
     Menu text
 Sound: 
@@ -37,8 +40,8 @@ NPC’s:
     Multiple enemy types
 Graphics:
     Varied ground and wall textures, animated sprites
-    OpenGL lighting and shadows
-    Independent camera movement
+    HLSL lighting and shadows
+    Independent camera movement (stretch goal)
 Text:
     Combat text
     Intro story text
@@ -47,6 +50,8 @@ Sounds:
     Level music and atmospheric sounds
 
 ## Task Management
+Log tasks through Trello
+Assign tasks based on what people want to to and what needs to be done
 
 ### Task Breakdowns
 Task breakdowns managed through Trello.
