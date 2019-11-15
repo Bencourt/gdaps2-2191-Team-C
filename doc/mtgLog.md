@@ -22,6 +22,10 @@
 - *10/25* (4 present): work day 
 - *10/29* (3 present): checkup on group's current tasks and general workday
 - *11/01* (3 present): assignment of minor requirements: win state and menu state
+- *11/05* (2 present): work day
+- *11/08* (3 present): deck homework
+- *11/12* (3 present): work on milestone three
+- *11/14* (3 present): Complete MS 3 presentation and work on some features
 
 ## Milestone 4
 - *Date* (# team members present): topics discussed
