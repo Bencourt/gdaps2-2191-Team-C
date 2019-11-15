@@ -4,7 +4,7 @@
 |-----------|-------------------|
 | 1: Design and Architecture | https://docs.google.com/presentation/d/1lRF5FHr1asR7D4dBH51GSXh4WBgxuHAN9zrDsg0Yae4/edit?usp=sharing
 | 2: Bare Bones Game | https://docs.google.com/presentation/d/10jOtTybDAxEro_E7cVGzOYc1_82qrQuanN2Lwf9gBkI/edit#slide=id.p |
-| 3: First Playable | [Milestone 3 Presentation](https://docs.google.com/presentation/....) |
+| 3: First Playable | [Milestone 3 woo yay](https://docs.google.com/presentation/d/1xHnu3EShNPPKbHiKv9fw-mstQ2n_Ryao_edP3RwpfWA/edit#slide=id.g6b31700958_0_0) |
 | 4: A Polished Game | [Milestone 4 Presentation](https://docs.google.com/presentation/....) |
 
 ## Instructions
@@ -21,5 +21,6 @@ With each milestone, **add a link in the table above to your presentation slides
   We wrote the presentation 2 together in a meeting on the thursday before the presentation day. We split up the tasks, worked together, and edited each other's slides until the presentation was complete.
 
 ## Milestone 3
+  We wrote the presentation 3 yesterday while frantically working on the code. Everyone was extremely caffinated. That might have just been me. Since it was such a short presentation, we spent quite a lot of the time working on the code as opposed to the presentation. 
 
 ## Milestone 4
