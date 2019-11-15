@@ -161,6 +161,7 @@ namespace TeamTube
 
                             if (((enemyPosition.X - playerPosition.X <= 1) && (enemyPosition.X - playerPosition.X >= -1)) && ((enemyPosition.Y - playerPosition.Y <= 1) && (enemyPosition.Y - playerPosition.Y >= -1)))
                             {
+                                if(c != this)
                                 c.TakeDamage(weakAttack);
                             }
                         }
