@@ -128,6 +128,7 @@
 	pixel art, 32x32px sprites
     camera follows the player
     		stretch goal 1 - lighting and shadows
+			-Lighting has begun to be implemented 
             	stretch goal 2 - camera able to move independently from the player (looking around into previously visited rooms)
 
 ### Text
