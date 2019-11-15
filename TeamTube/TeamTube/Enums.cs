@@ -12,13 +12,13 @@
     {
         mainMenu,
         gamePlay,
-        moveSelect,
-        itemSelect,
         pauseMenu,
+        winState,
         gameOver
     }
     enum MenuState//Item state will be put in at a later time
     {
+        closed,
         attack,
         strongAttack,
         item,

@@ -12,12 +12,16 @@
 - *10/3* (3 present): Concept art finalized, presentation continued
 
 ## Milestone 2
-- *Date* (# team members present): topics discussed
-- ...
+- *10/8* (3 present): Started working on mpp mechanics
+- *10/11* (4 present): New art created, kept working on mpp mechanics
+- *10/15* (3 present): Continued working on mpp mechanics
+- *10/17* (4 present): Presentation written 
 
 ## Milestone 3
-- *Date* (# team members present): topics discussed
-- ...
+- *10/22* (3 present): task division and completion for milestone 3
+- *10/25* (4 present): work day 
+- *10/29* (3 present): checkup on group's current tasks and general workday
+- *11/01* (3 present): assignment of minor requirements: win state and menu state
 
 ## Milestone 4
 - *Date* (# team members present): topics discussed

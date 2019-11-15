@@ -11,132 +11,178 @@ namespace TeamTube
 {
     class Player : Character, iMovable
     {
+        //fields
+        //player rectangle and texture
         Texture2D playerTexture;
         Rectangle playerRectangle;
+        //is the player moving
         bool moving;
+        //the room position to move to
         int xTarget;
         int yTarget;
+        //character controller
         CharacterController characterController;
+        //tile controller
         TileController tiles;
+        //the speed at which the character moves
+        int speed = 2;
+        //items 
+        int itemsHeld = 0;
 
-        public Player(CharacterController characterController, TileController tiles, int health, Rectangle playerRectangle, Texture2D playerTexture)
+        //player rectangle property
+        public Rectangle PlayerRectangle
         {
-            xTarget = 0;
-            yTarget = 0;
-            this.Health = health;
-            moving = false;
-            this.characterController = characterController;
-            this.tiles = tiles;
-            this.playerRectangle = playerRectangle;
-            this.playerTexture = playerTexture;
-            characterController.Add(this, playerRectangle.X/32, playerRectangle.Y/32);
+            get { return playerRectangle; }
         }
 
+        public int ItemsHeld
+        {
+            get { return itemsHeld; }
+            set { itemsHeld = value; }
+        }
+
+        //player constructor makes a player in the character and tile controllers
+        public Player(CharacterController characterController, TileController tiles, int health, Rectangle playerRectangle, Texture2D playerTexture)
+        {
+            //move targets set to 0
+            xTarget = 0;
+            yTarget = 0;
+            //Health set
+            this.Health = health;
+            //player is not moving
+            moving = false;
+            //set the character controller and tile controller
+            this.characterController = characterController;
+            this.tiles = tiles;
+            //set the rectangle and texture
+            this.playerRectangle = playerRectangle;
+            this.playerTexture = playerTexture;
+            //add the player to the character controller
+            characterController.Add(this, playerRectangle.X/32, playerRectangle.Y/32);
+            //set the input to be false;
+            characterController.Input = false;
+        }
+
+        //check target method checks the tiles around the character to determine if a move is valid or not
         public override bool CheckTarget(int targetX, int targetY)
         {
+            //get the array position of the character
             int x = characterController.FindCharacter(this).X;
             int y = characterController.FindCharacter(this).Y;
 
+            //if the tiles in the target position of the character is not a wall or character
             if (tiles.levels[0][x + targetX, y + targetY] != TileType.Wall && characterController.Characters[x + targetX, y + targetY] == null)
             {
-                return true;
+                if ((targetX == 1 || targetX == -1) && (targetY == 1 || targetY == -1))
+                {
+                    //recursively check corners
+                    if (CheckTarget(targetX, 0) && CheckTarget(0, targetY))
+                        //valid move space
+                        return true;
+                    else
+                        //invalid move space
+                        return false;
+                }
+                else
+                {
+                    //valid move space
+                    return true;
+                }
             }
             else
             {
+                //invalid moves space
                 return false;
             }
         }
 
+        //update method
         public override void Update(KeyboardState keyboardState)
         {
-            Turn = true;
+            //make decision regarding movement
             MakeDecision(keyboardState);
             if (moving)
             {
-                if(xTarget > 0)
+                if (xTarget > 0)
                 {
-                    playerRectangle.X++;
-                    xTarget--;
+                    playerRectangle.X += speed;
+                    xTarget -= speed;
                 }
-                else if(xTarget < 0)
+                else if (xTarget < 0)
                 {
-                    playerRectangle.X--;
-                    xTarget++;
-                }
-                else
-                {
-                    //dont move
-                }
-
-                if(yTarget > 0)
-                {
-                    playerRectangle.Y--;
-                    yTarget--;
-                }
-                else if(yTarget < 0)
-                {
-                    playerRectangle.Y++;
-                    yTarget++;
+                    playerRectangle.X -= speed;
+                    xTarget += speed;
                 }
                 else
                 {
                     //dont move
                 }
 
-                if(xTarget == 0 && yTarget == 0)
+                if (yTarget > 0)
+                {
+                    playerRectangle.Y -= speed;
+                    yTarget -= speed;
+                }
+                else if (yTarget < 0)
+                {
+                    playerRectangle.Y += speed;
+                    yTarget += speed;
+                }
+                else
+                {
+                    //dont move
+                }
+
+                if (xTarget == 0 && yTarget == 0)
                 {
                     moving = false;
+                    characterController.Input = false;
                 }
             }
+        
         }
 
         public override void MakeDecision(KeyboardState keyboardState)
         {
+            //if the player isn't moving
             if (!moving)
             {
+                int inputY = 0;
+                int inputX = 0;
+
                 if (keyboardState.IsKeyDown(Keys.Up))
                 {
-                    if (CheckTarget(0, -1))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 0, -1);
-                        Turn = false;
-                        yTarget += 32;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
-                    }
+                    inputY = -1;
                 }
-                if (keyboardState.IsKeyDown(Keys.Down))
+                else if (keyboardState.IsKeyDown(Keys.Down))
                 {
-                    if (CheckTarget(0, 1))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 0, 1);
-                        yTarget -= 32;
-                        Turn = false;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
-                    }
+                    inputY = 1;
+                }
+                else
+                {
+                    inputY = 0;
                 }
                 if (keyboardState.IsKeyDown(Keys.Left))
                 {
-                    if (CheckTarget(-1, 0))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, -1, 0);
-                        xTarget -= 32;
-                        Turn = false;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
-                    }
+                    inputX = -1;
                 }
-                if (keyboardState.IsKeyDown(Keys.Right))
+                else if (keyboardState.IsKeyDown(Keys.Right))
                 {
-                    if (CheckTarget(1, 0))
-                    {
-                        moving = true;
-                        characterController.MoveCharacter(this, 1, 0);
-                        xTarget += 32;
-                        Turn = false;
-                        //characterController.AllCharacters.Find(this).Next.Value.Turn = true;
-                    }
+                    inputX = 1;
+                }
+                else
+                {
+                    inputX = 0;
+                }
+
+                if(CheckTarget(inputX,inputY))
+                {
+                    moving = true;
+                    characterController.MoveCharacter(this, inputX, inputY);
+                    xTarget = 32 * inputX;
+                    yTarget = 32 * -inputY;
+                    Turn = false;
+                    characterController.Input = true;
                 }
             }
         }

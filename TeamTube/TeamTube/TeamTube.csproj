@@ -14,23 +14,6 @@
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\Profiles\bjl4618\Source\repos\gdaps2-2191-Team-C\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -57,27 +40,18 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>436FEEAE56B716EDB2CFF8DE865AE32D916C4432</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>TeamTube_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterController.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="HealthPotion.cs" />
     <Compile Include="iDamageable.cs" />
     <Compile Include="iMovable.cs" />
-    <Compile Include="MenuController.cs" />
+    <Compile Include="GameStateController.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,22 +65,90 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\entrance.png" />
+    <Content Include="Content\Entrance_tile.png" />
+    <Content Include="Content\exit.png" />
+    <Content Include="Content\File.fx" />
+    <Content Include="Content\floor.png" />
+    <Content Include="Content\Ground_tile.png" />
+    <Content Include="Content\HealthPotion.png.png" />
+    <Content Include="Content\lightmask.png" />
+    <Content Include="Content\player.png" />
+    <Content Include="Content\Player_Placeholder.png.png" />
+    <Content Include="Content\SelectionBG.png" />
+    <Content Include="Content\slime_idle.png" />
+    <Content Include="Content\Wall.png" />
+    <Content Include="Content\Wall_tile.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-    <None Include="TeamTube_TemporaryKey.pfx" />
+    <None Include="Content\AttackFont.spritefont" />
+    <None Include="Content\bin\Windows\Content\entrance.xnb" />
+    <None Include="Content\bin\Windows\Content\Entrance_tile.xnb" />
+    <None Include="Content\bin\Windows\Content\exit.xnb" />
+    <None Include="Content\bin\Windows\Content\floor.xnb" />
+    <None Include="Content\bin\Windows\Content\Font.xnb" />
+    <None Include="Content\bin\Windows\Content\Ground_tile.xnb" />
+    <None Include="Content\bin\Windows\Content\lighteffect.xnb" />
+    <None Include="Content\bin\Windows\Content\lightmask.xnb" />
+    <None Include="Content\bin\Windows\Content\player.xnb" />
+    <None Include="Content\bin\Windows\Content\Player_Placeholder.xnb" />
+    <None Include="Content\bin\Windows\Content\SelectionBG.xnb" />
+    <None Include="Content\bin\Windows\Content\slime_idle.xnb" />
+    <None Include="Content\bin\Windows\Content\Wall.xnb" />
+    <None Include="Content\bin\Windows\Content\Wall_tile.xnb" />
+    <None Include="Content\bin\Windows\entrance.xnb" />
+    <None Include="Content\bin\Windows\Entrance_tile.xnb" />
+    <None Include="Content\bin\Windows\exit.xnb" />
+    <None Include="Content\bin\Windows\floor.xnb" />
+    <None Include="Content\bin\Windows\Font.xnb" />
+    <None Include="Content\bin\Windows\Ground_tile.xnb" />
+    <None Include="Content\bin\Windows\lighteffect.xnb" />
+    <None Include="Content\bin\Windows\lightmask.xnb" />
+    <None Include="Content\bin\Windows\player.xnb" />
+    <None Include="Content\bin\Windows\Player_Placeholder.xnb" />
+    <None Include="Content\bin\Windows\SelectionBG.xnb" />
+    <None Include="Content\bin\Windows\slime_idle.xnb" />
+    <None Include="Content\bin\Windows\Wall.xnb" />
+    <None Include="Content\bin\Windows\Wall_tile.xnb" />
+    <None Include="Content\File.spritefont" />
+    <None Include="Content\obj\Windows\.mgcontent" />
+    <None Include="Content\obj\Windows\.mgstats" />
+    <None Include="Content\obj\Windows\Content\.mgcontent" />
+    <None Include="Content\obj\Windows\Content\.mgstats" />
+    <None Include="Content\obj\Windows\Content\entrance.mgcontent" />
+    <None Include="Content\obj\Windows\Content\Entrance_tile.mgcontent" />
+    <None Include="Content\obj\Windows\Content\exit.mgcontent" />
+    <None Include="Content\obj\Windows\Content\floor.mgcontent" />
+    <None Include="Content\obj\Windows\Content\Font.mgcontent" />
+    <None Include="Content\obj\Windows\Content\Ground_tile.mgcontent" />
+    <None Include="Content\obj\Windows\Content\lighteffect.mgcontent" />
+    <None Include="Content\obj\Windows\Content\lightmask.mgcontent" />
+    <None Include="Content\obj\Windows\Content\player.mgcontent" />
+    <None Include="Content\obj\Windows\Content\Player_Placeholder.mgcontent" />
+    <None Include="Content\obj\Windows\Content\SelectionBG.mgcontent" />
+    <None Include="Content\obj\Windows\Content\slime_idle.mgcontent" />
+    <None Include="Content\obj\Windows\Content\Wall.mgcontent" />
+    <None Include="Content\obj\Windows\Content\Wall_tile.mgcontent" />
+    <None Include="Content\obj\Windows\entrance.mgcontent" />
+    <None Include="Content\obj\Windows\Entrance_tile.mgcontent" />
+    <None Include="Content\obj\Windows\exit.mgcontent" />
+    <None Include="Content\obj\Windows\floor.mgcontent" />
+    <None Include="Content\obj\Windows\Font.mgcontent" />
+    <None Include="Content\obj\Windows\Ground_tile.mgcontent" />
+    <None Include="Content\obj\Windows\lighteffect.mgcontent" />
+    <None Include="Content\obj\Windows\lightmask.mgcontent" />
+    <None Include="Content\obj\Windows\player.mgcontent" />
+    <None Include="Content\obj\Windows\Player_Placeholder.mgcontent" />
+    <None Include="Content\obj\Windows\SelectionBG.mgcontent" />
+    <None Include="Content\obj\Windows\slime_idle.mgcontent" />
+    <None Include="Content\obj\Windows\Wall.mgcontent" />
+    <None Include="Content\obj\Windows\Wall_tile.mgcontent" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Levels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

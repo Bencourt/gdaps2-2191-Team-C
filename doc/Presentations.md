@@ -3,7 +3,7 @@
 | Milestone | Presentation Link |
 |-----------|-------------------|
 | 1: Design and Architecture | https://docs.google.com/presentation/d/1lRF5FHr1asR7D4dBH51GSXh4WBgxuHAN9zrDsg0Yae4/edit?usp=sharing
-| 2: Bare Bones Game | [Milestone 2 Presentation](https://docs.google.com/presentation/....) |
+| 2: Bare Bones Game | https://docs.google.com/presentation/d/10jOtTybDAxEro_E7cVGzOYc1_82qrQuanN2Lwf9gBkI/edit#slide=id.p |
 | 3: First Playable | [Milestone 3 Presentation](https://docs.google.com/presentation/....) |
 | 4: A Polished Game | [Milestone 4 Presentation](https://docs.google.com/presentation/....) |
 
@@ -18,6 +18,7 @@ With each milestone, **add a link in the table above to your presentation slides
   We started the presentation planning on September 30th, and during our meeting on Oct. 1, we started putting it together. Tasks were mostly split up through the trello and people were reminded of their duties through the discord. To practice, we planned out our roles and slides through the discord voice chat as well.
 
 ## Milestone 2
+  We wrote the presentation 2 together in a meeting on the thursday before the presentation day. We split up the tasks, worked together, and edited each other's slides until the presentation was complete.
 
 ## Milestone 3
 
