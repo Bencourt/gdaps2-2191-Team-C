@@ -28,8 +28,8 @@ namespace TeamTube
         public override void Update(Player player)
         {
             base.Update(player);
-            if (rect.Intersects(player.PlayerRectangle) && isActive)
-                player.ItemsHeld++;
+            //if (rect.Intersects(player.PlayerRectangle) && isActive)
+               // player.ItemsHeld++;
         }
 
     }

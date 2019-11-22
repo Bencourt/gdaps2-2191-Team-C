@@ -474,9 +474,9 @@ namespace TeamTube
             //shader drawing stuff
             GraphicsDevice.SetRenderTarget(lightsTarget);
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, transformMatrix: camera.Transform);
             //draw light mask where there should be torches etc...
-            spriteBatch.Draw(lightMask, new Vector2(player.PlayerRectangle.X, player.PlayerRectangle.Y), Color.White);
+            spriteBatch.Draw(lightMask, new Rectangle(new Point(player.PlayerRectangle.X - lightMask.Width, player.PlayerRectangle.Y - lightMask.Height), new Point(lightMask.Width * 2,lightMask.Height * 2)) , Color.White);
             //spriteBatch.Draw(lightMask, new Vector2(X, Y), Color.White);
 
             spriteBatch.End();
@@ -607,7 +607,7 @@ namespace TeamTube
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             effect1.Parameters["lightMask"].SetValue(lightsTarget);
-            //effect1.CurrentTechnique.Passes[effect1.CurrentTechnique.Passes.Count-1].Apply();
+            effect1.CurrentTechnique.Passes[effect1.CurrentTechnique.Passes.Count-1].Apply();
             spriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
 

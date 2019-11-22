@@ -26,7 +26,7 @@ namespace TeamTube
 
         public virtual void Update(Player player)
         {
-            if(rect.Intersects(player.PlayerRectangle))
+            if(rect.Intersects(player.PlayerRectangle) && isActive)
             {
                 isActive = false;
                 player.ItemsHeld += 1;
