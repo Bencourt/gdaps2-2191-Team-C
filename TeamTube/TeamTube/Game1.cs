@@ -611,6 +611,26 @@ namespace TeamTube
             spriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
 
+            spriteBatch.Begin(SpriteSortMode.Deferred);
+            switch (gState)
+            {
+                case GameState.gamePlay:
+                    //gameplay draw logic
+                    spriteBatch.DrawString(font, "Potions: " + player.ItemsHeld, potions, Color.White);
+                    break;
+                case GameState.mainMenu:
+                    //draw a prompt
+                    spriteBatch.DrawString(font, "Press enter to start", Vector2.Zero, Color.White);
+                    break;
+                case GameState.pauseMenu:
+                    break;
+                case GameState.winState:
+                    break;
+                case GameState.gameOver:
+                    break;
+            }
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
