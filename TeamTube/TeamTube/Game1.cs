@@ -120,9 +120,9 @@ namespace TeamTube
           //  potionActive = false;
             playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
             enemyRectangle = new Rectangle(new Point(32*5, 32*5), new Point(32, 32));
-            potOneRect = new Rectangle(new Point(128, 128), new Point(16, 16));
-            potTwoRect = new Rectangle(new Point(160, 488), new Point(16, 16));
-            potThreeRect = new Rectangle(new Point(520, 128), new Point(16, 16));
+            potOneRect = new Rectangle(new Point(128+8, 128+8), new Point(16, 16));
+            potTwoRect = new Rectangle(new Point(160+8, 488), new Point(16, 16));
+            potThreeRect = new Rectangle(new Point(520, 128+8), new Point(16, 16));
             exitVector = new Vector2(20, 70);
             itemVector = new Vector2(20, 60);
             attackVector = new Vector2(20, 50);
@@ -587,7 +587,6 @@ namespace TeamTube
                     {
                         item.Draw(spriteBatch);
                     }
-                    spriteBatch.DrawString(font, "Potions: " + player.ItemsHeld, potions, Color.White);
                     break;
                 case GameState.mainMenu:
                     //draw a prompt
