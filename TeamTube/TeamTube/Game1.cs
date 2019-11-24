@@ -190,6 +190,11 @@ namespace TeamTube
             var pp = GraphicsDevice.PresentationParameters;
             lightsTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
             mainTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
+            Random rng = new Random();
+          foreach(Item i in items)
+            {
+                i.Populate(tileController, 1, rng);
+            }
         }
 
         /// <summary>
