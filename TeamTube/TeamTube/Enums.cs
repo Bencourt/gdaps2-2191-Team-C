@@ -30,4 +30,12 @@
         potion,
         exit
     }
+
+    enum MenuItem //we need node types for traversal logic
+    {
+        root,
+        menu,
+        back,
+        item
+    }
 }

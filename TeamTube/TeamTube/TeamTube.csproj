@@ -52,6 +52,7 @@
     <Compile Include="iMovable.cs" />
     <Compile Include="GameStateController.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="MenuNode.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
