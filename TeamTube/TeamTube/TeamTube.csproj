@@ -53,6 +53,7 @@
     <Compile Include="GameStateController.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MenuNode.cs" />
+    <Compile Include="MenuStack.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
