@@ -28,6 +28,8 @@ namespace TeamTube
         //the speed at which the enemy moves
         int speed = 2;
 
+        public bool myInput = false;
+
         //Enemy constructor takes information for the enemy fields
         public Enemy(CharacterController characterController, TileController tiles, int health, Rectangle enemyRectangle, Texture2D enemyTexture, Character player)
         {
@@ -69,11 +71,11 @@ namespace TeamTube
         public override void Update(KeyboardState keyboardState)
         {
             //if the player has put in input
-            if(characterController.Input == true)
+            if (characterController.Input == true && myInput == false)
             {
                 //make the enemy's decision and give input control back to the player
                 MakeDecision(keyboardState);
-                characterController.Input = false;
+                myInput = true;
             }
 
             //if the enemy is moving
@@ -115,7 +117,7 @@ namespace TeamTube
                 if (xTarget == 0 && yTarget == 0)
                 {
                     moving = false;
-                    characterController.Input = false;
+                    myInput = true;
                 }
             }
         }
@@ -125,13 +127,14 @@ namespace TeamTube
         {
             //throw new NotImplementedException();
             characterController.Remove(this);
-
         }
 
         //draw method draws the enemy
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(enemyTexture, enemyRectangle, new Rectangle(0,0,32,32), Color.White);
+            //if the player is still alive, draw the player
+            if(Health>0)
+                sb.Draw(enemyTexture, enemyRectangle, new Rectangle(0,0,32,32), Color.White);
         }
 
         //make decision method 
@@ -160,6 +163,21 @@ namespace TeamTube
                     //set the x and y move targets
                     yTarget = -32 * targetY;
                     xTarget = 32 * targetX;
+                }
+                else
+                {
+                    //the enemy attacks
+                    foreach (Character c in characterController.AllCharacters)
+                    {
+                        Point enemyPosition = characterController.FindCharacter(c);
+                        Point playerPosition = characterController.FindCharacter(this);
+
+                        if (((enemyPosition.X - playerPosition.X <= 1) && (enemyPosition.X - playerPosition.X >= -1)) && ((enemyPosition.Y - playerPosition.Y <= 1) && (enemyPosition.Y - playerPosition.Y >= -1)))
+                        {
+                            if (c is Player)
+                                c.TakeDamage(1);
+                        }
+                    }
                 }
             }
         }

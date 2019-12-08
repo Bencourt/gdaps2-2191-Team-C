@@ -49,10 +49,12 @@ namespace TeamTube
         Rectangle playerRectangle;
         Texture2D enemyTexture;
         Rectangle enemyRectangle;
+        Rectangle enemyRectangle2;
 
         CharacterController characterController;
         Player player;
         Enemy enemy;
+        Enemy enemy2;
 
         //we need a tile Controller
         TileController tileController;
@@ -127,6 +129,7 @@ namespace TeamTube
           //  potionActive = false;
             playerRectangle = new Rectangle(new Point(96, 96), new Point(32, 32));
             enemyRectangle = new Rectangle(new Point(32*5, 32*5), new Point(32, 32));
+            enemyRectangle2 = new Rectangle(new Point(32 * 12, 32 * 4), new Point(32, 32));
             potOneRect = new Rectangle(new Point(128+8, 128+8), new Point(16, 16));
             potTwoRect = new Rectangle(new Point(160+8, 488), new Point(16, 16));
             potThreeRect = new Rectangle(new Point(520, 128+8), new Point(16, 16));
@@ -196,6 +199,7 @@ namespace TeamTube
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
             enemy = new Enemy(characterController, tileController, 10, enemyRectangle, enemyTexture, player);
+            enemy2 = new Enemy(characterController, tileController, 10, enemyRectangle2, enemyTexture, player);
 
             potOne = new HealthPotion(10, potOneRect, hpPotTexture);
             potTwo = new HealthPotion(10, potTwoRect, hpPotTexture);
@@ -458,6 +462,7 @@ namespace TeamTube
                     stack.update(kbState, previousKbState);
                     player.Update(kbState);
                     enemy.Update(kbState);
+                    enemy2.Update(kbState);
                     foreach(Item item in items)
                     {
                         item.Update(player);
@@ -609,6 +614,7 @@ namespace TeamTube
                     tileController.DrawLevel(spriteBatch, wallTexture, floorTexture, entranceTexture, exitTexture, 1);
                     player.Draw(spriteBatch);
                     enemy.Draw(spriteBatch);
+                    enemy2.Draw(spriteBatch);
                     foreach(Item item in items)
                     {
                         item.Draw(spriteBatch);

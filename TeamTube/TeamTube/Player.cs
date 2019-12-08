@@ -102,6 +102,7 @@ namespace TeamTube
         public override void Update(KeyboardState keyboardState)
         {
             //make decision regarding movement
+            characterController.TakeTurns();
             MakeDecision(keyboardState);
             if (moving)
             {

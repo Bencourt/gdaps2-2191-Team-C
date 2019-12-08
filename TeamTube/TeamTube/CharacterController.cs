@@ -97,27 +97,47 @@ namespace TeamTube
             Characters[myIndex.X, myIndex.Y] = null;
         }
 
-        /*
-         * 
-         * The take turns method was supposed to control which character should be making decisions and looping through the characters 
-         * 
-         * 
-        public void TakeTurns(KeyboardState keyboardState)
+        public void TakeTurns()
         {
+            //set the enemies moved boolean to false
+            bool enemiesMoved = false;
             getCharacters();
             if (allCharacters != null)
             {
-                foreach (Character c in allCharacters)
+                foreach (Character e in allCharacters)
                 {
-                    if (c.Turn)
+                    if (e != null && e is Enemy)
                     {
-                        c.MakeDecision(keyboardState);
+                        Enemy enemy = (Enemy)e;
+                        if (enemy.myInput)
+                        {
+                            enemiesMoved = true;
+                        }
+                        else
+                        {
+                            enemiesMoved = false;
+                            break;
+                        }
                     }
-                    c.Update(keyboardState);
+                    else
+                    {
+                        enemiesMoved = true;
+                    }
+                }
+                if(enemiesMoved)
+                {
+                    Input = false;
+                    foreach(Character e in allCharacters)
+                    {
+                        if (e is Enemy)
+                        {
+                            Enemy enemy = (Enemy)e;
+                            enemy.myInput = false;
+                        }
+                    }
                 }
             }
         }
-        */
 
 
         //getCharacters method 
