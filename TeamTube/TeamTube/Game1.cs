@@ -468,7 +468,8 @@ namespace TeamTube
                         item.Update(player);
                     }
                     camera.Follow(player);
-
+                    if (player.dead)
+                        gState = GameState.gameOver;
                     break;
                 case GameState.mainMenu:
                     //menu state logic
@@ -630,6 +631,7 @@ namespace TeamTube
                 case GameState.winState:
                     break;
                 case GameState.gameOver:
+                    player.Draw(spriteBatch);
                     break;
             }
             spriteBatch.End();

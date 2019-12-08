@@ -17,6 +17,7 @@ namespace TeamTube
         Rectangle playerRectangle;
         //is the player moving
         bool moving;
+        public bool dead = false;
         //the room position to move to
         int xTarget;
         int yTarget;
@@ -213,11 +214,12 @@ namespace TeamTube
 
         public override void Death()
         {
-            throw new NotImplementedException();
+            dead = true;
         }
 
         public void Draw(SpriteBatch sb)
         {
+            if(Health > 0)
             sb.Draw(playerTexture, playerRectangle, null, Color.White);
         }
 
