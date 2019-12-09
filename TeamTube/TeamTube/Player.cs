@@ -102,11 +102,11 @@ namespace TeamTube
         }
 
         //update method
-        public override void Update(KeyboardState keyboardState)
+        public void Update(KeyboardState keyboardState, KeyboardState previousKbState)
         {
             //make decision regarding movement
             characterController.TakeTurns();
-            MakeDecision(keyboardState);
+            MakeDecision(keyboardState, previousKbState);
             if (moving)
             {
                 if (xTarget > 0)
@@ -148,14 +148,27 @@ namespace TeamTube
         
         }
 
-        public override void MakeDecision(KeyboardState keyboardState)
+        bool SingleKeyPress(KeyboardState current, KeyboardState previous, Keys key)
+        {
+            //return true if key is currently down and previously was up
+            if (current.IsKeyDown(key) && previous.IsKeyUp(key))
+            {
+                return true;
+            }
+            else //it isn't being pressed just now
+            {
+                return false;
+            }
+        }
+
+        public void MakeDecision(KeyboardState keyboardState, KeyboardState previousKbState)
         {
             //if the player isn't moving
             if (!moving)
             {
                 if (characterController.Input == false)
                 {
-                    if (keyboardState.IsKeyDown(Keys.L))
+                    if (SingleKeyPress(keyboardState, previousKbState, Keys.L))
                     {
                         characterController.Input = true;
                         foreach (Character c in characterController.AllCharacters)
@@ -166,7 +179,7 @@ namespace TeamTube
                             if (((enemyPosition.X - playerPosition.X <= 1) && (enemyPosition.X - playerPosition.X >= -1)) && ((enemyPosition.Y - playerPosition.Y <= 1) && (enemyPosition.Y - playerPosition.Y >= -1)))
                             {
                                 if(c != this)
-                                c.TakeDamage(weakAttack);
+                                c.TakeDamage(3);
                             }
                         }
                     }
@@ -225,5 +238,14 @@ namespace TeamTube
             sb.Draw(playerTexture, playerRectangle, null, Color.White);
         }
 
+        public override void MakeDecision(KeyboardState keyboardState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Update(KeyboardState keyboardState)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

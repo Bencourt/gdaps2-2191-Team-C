@@ -80,7 +80,7 @@ namespace TeamTube
         MenuState mState;
         ItemState iState;
         KeyboardState kbState;
-        KeyboardState previousKbState;
+        public KeyboardState previousKbState;
 
         //check if items have been picked up
        
@@ -479,7 +479,7 @@ namespace TeamTube
                     //if the menu is open, don't update the player or the enemies
                     if(!menuStack.update(kbState, previousKbState))
                     {
-                        player.Update(kbState);
+                        player.Update(kbState, previousKbState);
                         enemy.Update(kbState);
                         enemy2.Update(kbState);
                     }
@@ -676,6 +676,7 @@ namespace TeamTube
                     //gameplay draw logic
                     //only if
                     spriteBatch.DrawString(font, "Potions: " + player.ItemsHeld.Count, potions, Color.White);
+                    spriteBatch.DrawString(font, "Health: " + player.Health, new Vector2(potions.X, potions.Y + 40), Color.White);
                     //menu
                     menuStack.Draw(spriteBatch, playerMenuTexture, font);
                     break;

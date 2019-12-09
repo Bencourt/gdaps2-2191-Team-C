@@ -132,6 +132,7 @@ namespace TeamTube
                         if (e is Enemy)
                         {
                             Enemy enemy = (Enemy)e;
+                            enemy.notAttacked = true;
                             enemy.myInput = false;
                         }
                     }

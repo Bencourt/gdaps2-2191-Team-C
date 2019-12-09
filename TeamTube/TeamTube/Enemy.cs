@@ -27,6 +27,7 @@ namespace TeamTube
         TileController tiles;
         //the speed at which the enemy moves
         int speed = 2;
+        public bool notAttacked = true;
 
         public bool myInput = false;
 
@@ -174,8 +175,11 @@ namespace TeamTube
 
                         if (((enemyPosition.X - playerPosition.X <= 1) && (enemyPosition.X - playerPosition.X >= -1)) && ((enemyPosition.Y - playerPosition.Y <= 1) && (enemyPosition.Y - playerPosition.Y >= -1)))
                         {
-                            if (c is Player)
+                            if (c is Player && notAttacked)
+                            {
                                 c.TakeDamage(1);
+                                notAttacked = false;
+                            }
                         }
                     }
                 }
