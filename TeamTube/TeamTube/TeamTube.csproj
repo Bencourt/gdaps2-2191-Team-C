@@ -75,6 +75,7 @@
     <Content Include="Content\Ground_tile.png" />
     <Content Include="Content\HealthPotion.png.png" />
     <Content Include="Content\lightmask.png" />
+    <Content Include="Content\placeholder.jpg" />
     <Content Include="Content\player.png" />
     <Content Include="Content\Player_Placeholder.png.png" />
     <Content Include="Content\SelectionBG.png" />

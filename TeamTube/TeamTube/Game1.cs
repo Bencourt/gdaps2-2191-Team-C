@@ -101,6 +101,9 @@ namespace TeamTube
         RenderTarget2D lightsTarget;
         RenderTarget2D mainTarget;
 
+        //menu images
+        Rectangle backGround;
+        Texture2D mainMenu;
 
         public Game1()
         {
@@ -149,6 +152,7 @@ namespace TeamTube
             camera = new Camera();
             //GameState controller
             menuController = new GameStateController();
+            backGround = new Rectangle(0, 0, 1600, 1200);
             base.Initialize();
 
         }
@@ -216,7 +220,7 @@ namespace TeamTube
             items.Add(potOne);
             items.Add(potTwo);
             items.Add(potThree);
-
+            mainMenu = Content.Load<Texture2D>("placeholder");
             //loading shader stuff
             effect1 = Content.Load<Effect>("lighteffect");
             lightMask = Content.Load<Texture2D>("lightmask");
@@ -224,7 +228,8 @@ namespace TeamTube
             lightsTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
             mainTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
             Random rng = new Random();
-            foreach(Item i in items)
+            
+            foreach (Item i in items)
             {
                 i.Populate(tileController, 1, rng);
             }
@@ -640,6 +645,7 @@ namespace TeamTube
                 case GameState.mainMenu:
                     //draw a prompt
                     spriteBatch.DrawString(font, "Press enter to start", Vector2.Zero, Color.White);
+                    spriteBatch.Draw(mainMenu, backGround, Color.White);
                     break;
                 case GameState.pauseMenu:
                     //draw the pause menu
@@ -649,6 +655,7 @@ namespace TeamTube
                     break;
                 case GameState.gameOver:
                     player.Draw(spriteBatch);
+                    spriteBatch.Draw(mainMenu, backGround, Color.White);
                     break;
             }
             spriteBatch.End();
