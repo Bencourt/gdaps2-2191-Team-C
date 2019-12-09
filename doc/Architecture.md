@@ -17,6 +17,8 @@
   Our TileController holds a list of "Tile arrays" which hold the levels used by our game. Tile controller loads in text files, using file.io and arranges them in a neat tile array to be drawn, searched and interacted with.
   Our GameStateController contains all of the gamestate logic needed to swap between the mainmenu, gamplay, pause menu, gaveover menu, and win menu. This way we can make the update method in game1 without cluttering the method with confusing code, we can simply call it once at the end.
   Our CharacterController manages the movement of our player and our enemies as well as the attack functionality for our player.
+  Our last milestone came with it a tree and stack of menu nodes to give the player a potentially near limitless depth of menu options.
+  
 
 ## External Tool
   Our external tool can load, edit and save a text file full of numbers, which represent tiles. These text files can be read by our TileController, passing them into our game to use.

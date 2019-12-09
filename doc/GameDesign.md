@@ -102,8 +102,8 @@
 	one mode, dungeon crawl
 
 ### Controls
-	arrow keys to move, z and x as accept and decline
-	c to open menu, arrow keys to navigate menu
+	arrow keys to move, enter and esc as accept and decline
+	f to open menu, arrow keys to navigate menu
     possible extra contols: 
     	Hold s and use the arrow keys to move the camera
 	hold d and use the arrow keys to change the direction of the character
