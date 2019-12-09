@@ -36,6 +36,7 @@
         root,
         menu,
         back,
-        item
+        item,
+        attack
     }
 }

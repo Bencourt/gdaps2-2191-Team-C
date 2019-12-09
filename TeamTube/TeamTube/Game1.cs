@@ -139,7 +139,7 @@ namespace TeamTube
             strongVector = new Vector2(20, 40);
             bombVector = new Vector2(20, 40);
             potionVector = new Vector2(20, 50);
-            potions = new Vector2(screenWidth/2, screenHeight/2);
+            potions = new Vector2(screenWidth/2 + 200, screenHeight/2);
             selectionRect = new Rectangle(20, 30, 200, 70);
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
@@ -187,15 +187,17 @@ namespace TeamTube
             playerMenuTexture = Content.Load<Texture2D>("MenuDrop");
 
             //menu nodes and menu stack
+            //why on earth did I use a tree here
             menuRoot = new MenuNode("menu", MenuItem.root);
             menuRoot.Add(new MenuNode("items", MenuItem.menu));
+            menuRoot.Add(new MenuNode("attacks", MenuItem.menu));
             menuRoot.Add(new MenuNode("back", MenuItem.back));
             //add items here
-            menuRoot.MenuItems.ElementAt<MenuNode>(0).Add(new MenuNode("potions", MenuItem.item));
+            menuRoot.MenuItems.ElementAt<MenuNode>(0).Add(new MenuNode("use health potion", MenuItem.item));
             menuRoot.MenuItems.ElementAt<MenuNode>(0).Add(new MenuNode("back", MenuItem.back));
-
-            //menu stack
-            menuStack = new MenuStack(menuRoot);
+            //add attacks here
+            menuRoot.MenuItems.ElementAt<MenuNode>(1).Add(new MenuNode("WEAK ATTACK", MenuItem.attack));
+            menuRoot.MenuItems.ElementAt<MenuNode>(1).Add(new MenuNode("back", MenuItem.back));
 
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
@@ -216,10 +218,13 @@ namespace TeamTube
             lightsTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
             mainTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
             Random rng = new Random();
-          foreach(Item i in items)
+            foreach(Item i in items)
             {
                 i.Populate(tileController, 1, rng);
             }
+
+            //menu stack
+            menuStack = new MenuStack(menuRoot, player);
         }
 
         /// <summary>
@@ -654,7 +659,8 @@ namespace TeamTube
             {
                 case GameState.gamePlay:
                     //gameplay draw logic
-                    spriteBatch.DrawString(font, "Potions: " + player.ItemsHeld, potions, Color.White);
+                    //only if
+                    spriteBatch.DrawString(font, "Potions: " + player.ItemsHeld.Count, potions, Color.White);
                     //menu
                     menuStack.Draw(spriteBatch, playerMenuTexture, font);
                     break;

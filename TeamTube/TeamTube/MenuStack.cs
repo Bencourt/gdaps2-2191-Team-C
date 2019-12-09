@@ -18,8 +18,11 @@ namespace TeamTube
         //root node
         MenuNode root;
 
+        //need a player to heal/ effect with items
+        Player player;
+
         //constructor
-        public MenuStack(MenuNode root)
+        public MenuStack(MenuNode root, Player player)
         {
             //instantiate the stack
             stack = new Stack<MenuNode>();
@@ -27,6 +30,8 @@ namespace TeamTube
             selectedNode = 0;
             //we need a reference to the root node
             this.root = root;
+
+            this.player = player;
         }
 
         #region helper methods
@@ -79,8 +84,60 @@ namespace TeamTube
             //set selected to 0
             selectedNode = 0;
         }
-        //an item will do SOMETHING
 
+        /// <summary>
+        /// determine whether or not the player has this kind of item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        bool PlayerHasItemType(Type type)
+        {
+            //go through each of the items
+            foreach(Item item in player.ItemsHeld)
+            {
+                //check if they are the same type
+                if (ReferenceEquals(item.GetType(), type)) 
+                {
+                    //if so, return true
+                    return true;
+                }
+            }
+            //if none of them return true, return false
+            return false;
+        }
+
+        /// <summary>
+        /// uses the first potion in the list if the player has any potions
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="player"></param>
+        void UsePotion()
+        {
+            //saves the index of the potion we are using. if the index is null, don't remove anything
+            int? indexToRemove = null;
+
+            //check all the elements in the list
+            foreach (Item item in player.ItemsHeld)
+            {
+                //if this one is a potion
+                if(item is HealthPotion)
+                {
+                    HealthPotion potion = (HealthPotion)item;
+                    //use it
+                    potion.Use(player);
+                    //remove it from the list
+                    indexToRemove = player.ItemsHeld.IndexOf(item);
+                    //don't check anymore elements in the list
+                    break;
+                }
+            }
+            //remove the item if the index isn't null
+            if(indexToRemove != null)
+            {
+                int valueInt = (int)indexToRemove;
+                player.ItemsHeld.RemoveAt(valueInt);
+            }
+        }
         #endregion
 
         #region update
@@ -123,9 +180,18 @@ namespace TeamTube
                         Back();
                         break;
                     case MenuItem.item:
+                        //case for type of item
+                        switch (stack.Peek().MenuItems.ElementAt<MenuNode>(selectedNode).Name)
+                        {
+                            case "use health potion":
+                                //use a health potion if we got one
+                                UsePotion();
+                                break;
+                        }
+
+                        break;
+                    case MenuItem.attack:
                         //do something real specific
-                        
-                        //TODO
 
                         break;
                 }
@@ -176,7 +242,7 @@ namespace TeamTube
 
             //then display all the text
             //name of the menu
-            sb.DrawString(font, stack.Peek().Name, new Vector2(30, 15), Color.White,0,Vector2.Zero,2,SpriteEffects.None,0);
+            sb.DrawString(font, stack.Peek().Name, new Vector2(35, 15), Color.White,0,Vector2.Zero,2,SpriteEffects.None,0);
             //all the menu items
             int spacing = 1;
             foreach(MenuNode node in stack.Peek().MenuItems)
@@ -184,11 +250,29 @@ namespace TeamTube
                 //if it is at selected index, make it yellow
                 if (node == stack.Peek().MenuItems.ElementAt<MenuNode>(selectedNode))
                 {
-                    sb.DrawString(font, node.Name, new Vector2(30, (spacing * 30) + 50),Color.Yellow, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                    sb.DrawString(font, node.Name, new Vector2(35, (spacing * 30) + 50),Color.Yellow, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 }
                 else //otherwise make it white
                 {
-                    sb.DrawString(font, node.Name, new Vector2(20, (spacing * 30) + 50), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                    sb.DrawString(font, node.Name, new Vector2(25, (spacing * 30) + 50), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                }
+
+                //if it is an item, and we don't have any of that kind, make it red
+                if (node.Type == MenuItem.item)
+                {
+                    //switch case determining what kind of item it is
+                    //case for type of item
+                    switch (node.Name)
+                    {
+                        case "use health potion":
+                            //check if player has any health potions
+                            if (!PlayerHasItemType(typeof(HealthPotion)))
+                            {
+                                //if they don't, put a red x next to it
+                                sb.DrawString(font, "X", new Vector2(5, (spacing * 30) + 50), Color.Red, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                            }
+                            break;
+                    }
                 }
                 spacing++;
             }

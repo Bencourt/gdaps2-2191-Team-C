@@ -28,7 +28,7 @@ namespace TeamTube
         //the speed at which the character moves
         int speed = 2;
         //items 
-        int itemsHeld = 0;
+        List<Item> itemsHeld;
         //attack damage;
         int weakAttack = 1;
 
@@ -38,7 +38,7 @@ namespace TeamTube
             get { return playerRectangle; }
         }
 
-        public int ItemsHeld
+        public List<Item> ItemsHeld
         {
             get { return itemsHeld; }
             set { itemsHeld = value; }
@@ -64,6 +64,8 @@ namespace TeamTube
             characterController.Add(this, playerRectangle.X/32, playerRectangle.Y/32);
             //set the input to be false;
             characterController.Input = false;
+            //instantiate the list if items
+            itemsHeld = new List<Item>();
         }
 
         //check target method checks the tiles around the character to determine if a move is valid or not

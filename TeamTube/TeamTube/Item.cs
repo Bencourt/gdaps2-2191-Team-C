@@ -29,7 +29,8 @@ namespace TeamTube
             if(rect.Intersects(player.PlayerRectangle) && isActive)
             {
                 isActive = false;
-                player.ItemsHeld += 1;
+                //changed to be a list of all the items we have
+                player.ItemsHeld.Add(this);
             }
         }
 
