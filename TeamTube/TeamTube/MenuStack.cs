@@ -84,8 +84,8 @@ namespace TeamTube
         #endregion
 
         #region update
-        //big update method
-        public void update(KeyboardState current, KeyboardState previous)
+        //big update method, it is true if the menu is open, it is false if the menu is closed
+        public bool update(KeyboardState current, KeyboardState previous)
         {
             //if the stack is empty 
             if(stack.Count == 0)
@@ -95,11 +95,11 @@ namespace TeamTube
                 {
                     //if so, push the root to the stack
                     stack.Push(root);
-                    return;
+                    return true;
                 }
                 else //dont do the rest of this method, the menu isn't open
                 {
-                    return;
+                    return false;
                 }
             }
 
@@ -155,6 +155,9 @@ namespace TeamTube
             {
                 selectedNode = 0;
             }
+
+            //the menu is open
+            return true;
         }
         #endregion
 
@@ -173,7 +176,7 @@ namespace TeamTube
 
             //then display all the text
             //name of the menu
-            sb.DrawString(font, stack.Peek().Name, new Vector2(30, 15), Color.White);
+            sb.DrawString(font, stack.Peek().Name, new Vector2(30, 15), Color.White,0,Vector2.Zero,2,SpriteEffects.None,0);
             //all the menu items
             int spacing = 1;
             foreach(MenuNode node in stack.Peek().MenuItems)
@@ -181,11 +184,11 @@ namespace TeamTube
                 //if it is at selected index, make it yellow
                 if (node == stack.Peek().MenuItems.ElementAt<MenuNode>(selectedNode))
                 {
-                    sb.DrawString(font, node.Name, new Vector2(30, (spacing * 20) + 50),Color.Yellow);
+                    sb.DrawString(font, node.Name, new Vector2(30, (spacing * 30) + 50),Color.Yellow, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 }
                 else //otherwise make it white
                 {
-                    sb.DrawString(font, node.Name, new Vector2(20, (spacing * 20) + 50), Color.White);
+                    sb.DrawString(font, node.Name, new Vector2(20, (spacing * 30) + 50), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 }
                 spacing++;
             }

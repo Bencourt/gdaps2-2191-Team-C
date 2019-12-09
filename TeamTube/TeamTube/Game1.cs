@@ -67,7 +67,7 @@ namespace TeamTube
 
         //menuStack and Menunodes
         MenuNode menuRoot;
-        MenuStack stack;
+        MenuStack menuStack;
 
         //menuTexture
         Texture2D playerMenuTexture;
@@ -191,10 +191,11 @@ namespace TeamTube
             menuRoot.Add(new MenuNode("items", MenuItem.menu));
             menuRoot.Add(new MenuNode("back", MenuItem.back));
             //add items here
-            menuRoot.MenuItems.ElementAt<MenuNode>(0).Add(new MenuNode("back",MenuItem.back));
+            menuRoot.MenuItems.ElementAt<MenuNode>(0).Add(new MenuNode("potions", MenuItem.item));
+            menuRoot.MenuItems.ElementAt<MenuNode>(0).Add(new MenuNode("back", MenuItem.back));
 
             //menu stack
-            stack = new MenuStack(menuRoot);
+            menuStack = new MenuStack(menuRoot);
 
             characterController = new CharacterController(26, 26);
             player = new Player(characterController, tileController, 10, playerRectangle, playerTexture);
@@ -459,10 +460,13 @@ namespace TeamTube
                 case GameState.gamePlay:
 
                     //gamestate logic
-                    stack.update(kbState, previousKbState);
-                    player.Update(kbState);
-                    enemy.Update(kbState);
-                    enemy2.Update(kbState);
+                    //if the menu is open, don't update the player or the enemies
+                    if(!menuStack.update(kbState, previousKbState))
+                    {
+                        player.Update(kbState);
+                        enemy.Update(kbState);
+                        enemy2.Update(kbState);
+                    }
                     foreach(Item item in items)
                     {
                         item.Update(player);
@@ -652,7 +656,7 @@ namespace TeamTube
                     //gameplay draw logic
                     spriteBatch.DrawString(font, "Potions: " + player.ItemsHeld, potions, Color.White);
                     //menu
-                    stack.Draw(spriteBatch, playerMenuTexture, font);
+                    menuStack.Draw(spriteBatch, playerMenuTexture, font);
                     break;
                 case GameState.mainMenu:
                     //draw a prompt
