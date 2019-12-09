@@ -177,7 +177,7 @@ namespace TeamTube
             //selectionText = Content.Load<SpriteFont>("AttackFont");
             selectionBGTxt=Content.Load<Texture2D>("SelectionBG");
             //load temp player texture
-            playerTexture = Content.Load<Texture2D>("player");
+            playerTexture = Content.Load<Texture2D>("mayor_anim");
             enemyTexture = Content.Load<Texture2D>("slime_idle");
             //item textures
             hpPotTexture = Content.Load<Texture2D>("HealthPotion.png");
@@ -220,7 +220,7 @@ namespace TeamTube
             items.Add(potOne);
             items.Add(potTwo);
             items.Add(potThree);
-            mainMenu = Content.Load<Texture2D>("placeholder");
+            mainMenu = Content.Load<Texture2D>("Title screen");
             //loading shader stuff
             effect1 = Content.Load<Effect>("lighteffect");
             lightMask = Content.Load<Texture2D>("lightmask");
