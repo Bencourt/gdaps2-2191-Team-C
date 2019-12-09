@@ -41,6 +41,9 @@ namespace TeamTube
         Texture2D entranceTexture;
         Texture2D exitTexture;
 
+        //gamestate textures
+        Texture2D pauseMenu;
+
         //basic font
         SpriteFont font;
 
@@ -182,6 +185,9 @@ namespace TeamTube
             entrance1 = tileController.FindEntrance(1);
             exit1 = tileController.FindExit(1);
             playerRectangle.Location = new Point(entrance1.X * 32, entrance1.Y * 32);
+
+            //gamestate textures
+            pauseMenu = Content.Load<Texture2D>("pause screen");
 
             //player menu texture
             playerMenuTexture = Content.Load<Texture2D>("MenuDrop");
@@ -636,6 +642,8 @@ namespace TeamTube
                     spriteBatch.DrawString(font, "Press enter to start", Vector2.Zero, Color.White);
                     break;
                 case GameState.pauseMenu:
+                    //draw the pause menu
+                    spriteBatch.Draw(pauseMenu, Vector2.Zero, Color.White);
                     break;
                 case GameState.winState:
                     break;
