@@ -126,7 +126,7 @@ namespace TeamTube
             
             // TODO: Add your initialization logic here
             gState = new GameState();
-            gState = GameState.gamePlay;
+            gState = GameState.mainMenu;
             mState = new MenuState();
             iState = new ItemState();
             kbState = Keyboard.GetState();
@@ -681,6 +681,7 @@ namespace TeamTube
                     break;
                 case GameState.mainMenu:
                     //draw a prompt
+                    spriteBatch.Draw(mainMenu, backGround, Color.White);
                     spriteBatch.DrawString(font, "Press enter to start", Vector2.Zero, Color.White);
                     break;
                 case GameState.pauseMenu:
